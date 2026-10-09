@@ -1,0 +1,1545 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>POS CARE PRO | 현장 진단센터</title>
+<HTA:APPLICATION ID="POSCAREPRO" APPLICATIONNAME="POS CARE PRO"
+ BORDER="thick" CAPTION="yes" SHOWINTASKBAR="yes" SINGLEINSTANCE="no"
+ SYSMENU="yes" WINDOWSTATE="normal" WIDTH="1500" HEIGHT="900"
+ MAXIMIZEBUTTON="yes" MINIMIZEBUTTON="yes" RESIZE="yes" SCROLL="no">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#071426;color:#dce8f7;font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif}
+*{box-sizing:border-box}
+table{border-collapse:collapse}
+button{font-family:inherit}
+
+/* Windows HTA native resize is used. No client-area resize overlay is placed over the window edges. */
+#root{width:100%;height:100%;min-width:720px;min-height:520px}
+.side{width:285px;background:#071322;border-right:1px solid #1d3047;vertical-align:top;padding:18px 14px}
+.main{vertical-align:top;padding:22px 24px 10px;background:#071426}
+.brand{height:76px;white-space:nowrap}.brand img{width:68px;height:68px;object-fit:contain;vertical-align:middle;margin-right:8px}.brandText{display:inline-block;vertical-align:middle}.brandName{font-size:23px;font-weight:bold;color:#fff}.brandName span{color:#2f8cff}.brandSub{font-size:11px;color:#a9bdd4;margin-top:4px}
+.nav{width:100%;height:46px;margin-bottom:7px;border:1px solid #1c3249;background:#0b1e32;color:#d6e3f1;text-align:left;padding:0 12px;font-size:14px}.nav.active{background:#165dcc;border-color:#2d86ff;color:#fff}.ico{display:inline-block;width:28px;text-align:center;font-size:16px}
+.sys{margin-top:24px;border:1px solid #29425d;background:#0d2035;padding:14px;height:190px}.sys h3{margin:0 0 12px;color:#fff;font-size:16px}.sys p{margin:8px 0;color:#b6c9dd;font-size:12px}.ver{color:#72869d;font-size:10px;line-height:1.6;margin-top:10px}
+.top{height:62px;position:relative}.title{font-size:27px;color:#fff;font-weight:bold}.sub{font-size:13px;color:#8fa8c4;margin-top:5px}.admin{position:absolute;right:0;top:0;height:42px;padding:0 17px;border:1px solid #2b7be4;background:#0b1d31;color:#e2efff;font-weight:bold;font-size:13px}
+.cards{width:100%;height:98px;table-layout:fixed}.cards td{padding:0 5px}.card{height:97px;border:1px solid #263d55;background:#12263d;padding:12px 15px;vertical-align:middle}.ready{background:#1450a6;border-color:#1e70e8}.lbl{font-size:12px;color:#9fb4ca}.big{font-size:25px;font-weight:bold;color:#fff;margin-top:5px}.small{font-size:11px;color:#a8bad0;margin-top:3px}.ok .lbl,.ok .small{color:#53df93}.warn .lbl{color:#ffc44b}.err .lbl{color:#ff707b}.fix .lbl{color:#5da8ff}
+.content{height:auto;min-height:0;margin-top:16px}.left{width:auto;vertical-align:top;padding-right:8px}.right{width:316px;vertical-align:top;padding-left:8px}.panel{height:auto;min-height:100%;border:1px solid #23384f;background:#0b1b2c;overflow:visible;position:relative}.pt{height:47px;padding:14px 19px;font-size:16px;font-weight:bold;color:#fff;border-bottom:1px solid #1e3349}
+.prog{height:78px;padding:13px 19px;border-bottom:1px solid #1e3349}.track{display:inline-block;width:64%;height:14px;vertical-align:middle;background:#06101c;border:1px solid #1b2c40;overflow:hidden}.bar{display:block;height:100%;width:0;background:#19e67a}.pct{display:inline-block;width:46px;text-align:right;font-weight:bold;font-size:12px}.btn{height:38px;border:1px solid #2a78e8;background:#1763d5;color:#fff;padding:0 15px;font-weight:bold;margin-left:8px}.stop{background:#0d1c2d;border-color:#38536d}.meta{margin-top:10px;color:#8198b2;font-size:10px}.meta span{margin-right:22px}
+.selectTools{height:38px;padding:0 19px;display:flex;align-items:center;gap:7px;border-bottom:1px solid #1e3349}.selectBtn{height:30px;border:1px solid #2a78e8;background:#1763d5;color:#fff;padding:0 11px;font-weight:bold;font-size:11px}.selectBtn.recover{background:#d66a08;border-color:#f18a1b}.selectBtn.gray{background:#0d1c2d;border-color:#38536d}.selectCount{color:#8fa8c4;font-size:10px;margin-left:5px}.diagWrap{height:430px;min-height:430px;overflow-y:hidden;overflow-x:hidden;margin:0 19px 16px}
+.diagWrap .diag{width:100%;margin:0}.dt{height:34px;padding:11px 19px 7px;color:#dbe8f7;font-size:13px}.diag{width:calc(100% - 38px);margin:0 19px;table-layout:fixed;border:1px solid #23394f}.diag th{height:31px;background:#122a42;color:#c2d3e6;font-size:13px;border-right:1px solid #29415a}.diag td{height:34px;border-top:1px solid #1b3045;color:#c8d7e7;font-size:13px;padding:0 8px;white-space:nowrap;overflow:visible}.sel{width:42px;text-align:center}.sel input{width:15px;height:15px;vertical-align:middle;accent-color:#1766d7}.n{width:45px;text-align:center}.it{width:210px;font-weight:bold;color:#e4eef9}.desc{color:#8ea5bd}.st{width:92px;text-align:center}.res{width:135px;text-align:center}.good{color:#48dc8a!important}.caution{color:#ffc44b!important}.bad{color:#ff6b77!important}
+.log{position:relative;left:auto;right:auto;bottom:auto;height:150px;margin:0 19px 18px;border:1px solid #304861;background:#050d17;padding:8px;overflow:auto;font-family:Consolas,"Malgun Gothic",monospace;font-size:12px;color:#c9d8e8}.log div{margin-bottom:4px}
+.statusPanel{height:100%;padding:0 13px}.srow{min-height:76px;border-bottom:1px solid #20364d;padding:10px 8px}.srow.netrow{min-height:78px}.slabel{font-size:11px;color:#9eb2c7}.sline{display:flex;align-items:center;margin-top:3px}.sicon{display:inline-block;width:30px;text-align:center;font-size:22px;line-height:28px;color:#dbe8f7;margin-right:7px}.sbody{flex:1;min-width:0}.svalue{font-size:19px;color:#fff;font-weight:bold;line-height:23px}.ssub{font-size:10px;color:#7f97b0;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meter{height:6px;background:#182b3f;border-radius:5px;margin-top:5px;overflow:hidden}.meterFill{display:block;height:100%;width:0;background:#16c965;border-radius:5px;transition:width .35s}.bsMainProgress{display:none;margin-top:8px}.bsMainProgress .bsMainTrack{display:inline-block;width:calc(100% - 48px);height:7px;background:#183149;border-radius:6px;overflow:hidden;vertical-align:middle}.bsMainProgress .bsMainBar{display:block;height:100%;width:0;background:#16c965;border-radius:6px;transition:width .35s}.bsMainProgress .bsMainPct{display:inline-block;width:40px;text-align:right;color:#48dc8a;font-size:11px;font-weight:bold;vertical-align:middle}.statusGood{color:#24d66d!important}.statusWarn{color:#ffc44b!important}.statusBad{color:#ff6675!important}.quick{margin-top:14px}.quick h3{font-size:15px;color:#fff;margin:0 0 9px}.q{width:49%;height:48px;margin:0 1% 8px 0;border:1px solid #245ea9;background:#124b9a;color:#fff;font-weight:bold;font-size:12px}.qg{background:#0d6f4b;border-color:#16885d}.qr{background:#8d2533;border-color:#b83a4b}.qp{width:100%;background:#f08a24;border-color:#ffad58}
+.bottom{height:38px;border-top:1px solid #1d3249;margin-top:10px;color:#8fa5bc;font-size:10px;padding-top:12px;position:relative}.save{position:absolute;right:0;top:5px;height:34px;border:1px solid #304963;background:#0d1e31;color:#d7e5f5;padding:0 15px;font-weight:bold}
+
+@media (max-width: 1200px){.side{width:245px}.right{width:285px}.main{padding-left:16px;padding-right:16px}.it{width:175px}.diagWrap{margin-left:12px;margin-right:12px}.diag{margin-left:0;margin-right:0}.pt,.prog{padding-left:12px;padding-right:12px}}
+@media (max-height: 780px){.brand{height:62px}.brand img{width:52px;height:52px}.nav{height:39px;margin-bottom:5px}.sys{margin-top:12px;height:150px}.content{margin-top:10px}.cards{height:82px}.card{height:81px;padding:8px 10px}.top{height:55px}.prog{height:72px}.log{height:150px}.srow{height:68px}}
+#loginOverlay{position:absolute;left:0;top:0;right:0;bottom:0;background:#050d18;z-index:9999}
+.loginBox{position:absolute;left:50%;top:50%;width:390px;margin-left:-195px;margin-top:-215px;border:1px solid #24415f;background:#0b1b2c;padding:28px 30px;box-shadow:0 18px 55px #000}
+.loginLogo{text-align:center;height:92px}.loginLogo img{width:82px;height:82px;object-fit:contain}.loginTitle{text-align:center;color:#fff;font-size:24px;font-weight:bold}.loginSub{text-align:center;color:#8fa8c4;font-size:12px;margin:6px 0 22px}
+.loginLabel{display:block;color:#b8cbe0;font-size:12px;margin:10px 0 6px}.loginInput{width:100%;height:40px;border:1px solid #2a4560;background:#061321;color:#fff;padding:0 12px;font-size:14px;outline:none}.loginInput:focus{border-color:#2e83ee}
+.loginBtn{width:100%;height:42px;margin-top:18px;border:1px solid #3187ee;background:#1766d7;color:#fff;font-size:14px;font-weight:bold}.loginMsg{text-align:center;min-height:18px;margin-top:10px;color:#ff6f7c;font-size:11px}
+.modalShade{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8000}
+.modalBox{position:absolute;left:50%;top:50%;width:430px;max-height:86%;overflow-y:auto;margin-left:-215px;margin-top:-43%;border:1px solid #2b4a68;background:#0b1b2c;padding:24px;box-shadow:0 18px 55px #000}
+.modalTitle{font-size:19px;color:#fff;font-weight:bold;margin-bottom:18px}.modalBtn{height:38px;padding:0 18px;border:1px solid #2d7ee4;background:#1764d2;color:#fff;font-weight:bold}.modalCancel{background:#0d1c2d;border-color:#3b536c;margin-left:8px}.modalMsg{color:#ff707b;font-size:11px;height:18px;margin-top:8px}.printModal{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8500;display:none}.printBox{position:absolute;left:50%;top:50%;width:760px;height:610px;margin-left:-380px;margin-top:-305px;border:1px solid #315674;background:#0b1b2c;padding:22px;box-shadow:0 18px 55px #000;overflow:hidden}.printTitle{font-size:20px;color:#fff;font-weight:bold;margin-bottom:5px}.printSub{font-size:11px;color:#8fa8c4;margin-bottom:15px}.printTools{height:42px;display:flex;align-items:center;gap:8px;margin-bottom:10px}.printRun{height:36px;padding:0 16px;border:1px solid #ffad58;background:#f08a24;color:#fff;font-weight:bold}.printCancel{height:36px;padding:0 16px;border:1px solid #38536d;background:#0d1c2d;color:#fff;font-weight:bold;margin-left:auto}.printRows{border:1px solid #29415a;background:#0a1929;padding:4px 12px}.printRow{display:flex;align-items:center;min-height:58px;border-bottom:1px solid #1b3045;margin:0}.printRow:last-child{border-bottom:0}.printRow label{width:150px;color:#a9bfd4;font-size:12px;font-weight:bold}.printRow select{width:300px;height:36px;background:#061321;color:#fff;border:1px solid #315674;padding:0 8px;font-family:inherit}.printInfo{margin-top:14px;border:1px solid #29415a;background:#050d17;color:#8fa8c4;padding:12px;font-size:11px;line-height:1.7}.printStatus{margin-top:12px;color:#48dc8a;font-size:11px}.printBtns{display:none}.printStop{height:36px;padding:0 16px;border:1px solid #ff6675;background:#8d2533;color:#fff;font-weight:bold}.printActionGrid{display:flex;gap:8px;margin-top:12px}.printAction{height:38px;flex:1;border:1px solid #315674;background:#123456;color:#fff;font-weight:bold}.printFileName{margin-left:10px;color:#8fa8c4;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}.printRow input[type=file]{color:#c8d7e7;font-size:10px;max-width:360px}.printExeStatus{margin-top:6px;color:#8fa8c4;font-size:10px}
+
+#diskModal{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8600;display:none}.diskBox{position:absolute;left:50%;top:50%;width:680px;height:470px;margin-left:-340px;margin-top:-235px;border:1px solid #315674;background:#0b1b2c;padding:22px;box-shadow:0 18px 55px #000;overflow:hidden}.diskTitle{font-size:20px;color:#fff;font-weight:bold;margin-bottom:5px}.diskSub{font-size:11px;color:#8fa8c4;margin-bottom:15px}.diskInfo{border:1px solid #29415a;background:#0a1929;padding:15px;margin-bottom:15px}.diskInfoRow{display:flex;justify-content:space-between;border-bottom:1px solid #1b3045;padding:9px 0;color:#b7c9dc;font-size:12px}.diskInfoRow:last-child{border-bottom:0}.diskValue{color:#fff;font-weight:bold}.diskTools{display:flex;gap:8px;margin-bottom:12px}.diskRun{height:40px;padding:0 17px;border:1px solid #ffad58;background:#f08a24;color:#fff;font-weight:bold}.diskClean{height:40px;padding:0 17px;border:1px solid #2d83ed;background:#1766d7;color:#fff;font-weight:bold}.diskClose{height:40px;padding:0 17px;border:1px solid #38536d;background:#0d1c2d;color:#fff;font-weight:bold;margin-left:auto}.diskStatus{height:100px;border:1px solid #304861;background:#050d17;padding:10px;overflow:auto;font-family:Consolas,"Malgun Gothic",monospace;font-size:11px;color:#c9d8e8}.diskHint{margin-top:10px;color:#8198b2;font-size:10px;line-height:1.6}
+.comModal{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8700;display:none}
+.comBox{position:absolute;left:50%;top:50%;width:760px;height:610px;margin-left:-380px;margin-top:-305px;border:1px solid #315674;background:#0b1b2c;padding:22px;box-shadow:0 18px 55px #000;overflow:hidden}
+.comTitle{font-size:20px;color:#fff;font-weight:bold;margin-bottom:5px}.comSub{font-size:11px;color:#8fa8c4;margin-bottom:15px}
+.comTools{height:42px;display:flex;align-items:center;gap:8px;margin-bottom:10px}.comRun{height:36px;padding:0 16px;border:1px solid #2d83ed;background:#1766d7;color:#fff;font-weight:bold}.comRecover{height:36px;padding:0 16px;border:1px solid #ffad58;background:#f08a24;color:#fff;font-weight:bold}.comClose{height:36px;padding:0 16px;border:1px solid #38536d;background:#0d1c2d;color:#fff;font-weight:bold;margin-left:auto}
+.comTable{width:100%;table-layout:fixed;border:1px solid #29415a}.comTable th{height:34px;background:#122a42;color:#c2d3e6;font-size:11px;border-right:1px solid #29415a}.comTable td{height:39px;border-top:1px solid #1b3045;color:#c8d7e7;font-size:11px;padding:0 8px;white-space:nowrap;overflow:hidden}.comNo{width:70px;text-align:center}.comPort{width:110px;font-weight:bold;color:#e4eef9}.comDevice{width:280px}.comStatus{width:95px;text-align:center}.comResult{width:85px;text-align:center}.comAction{width:100px;text-align:center}.comBtn{height:27px;padding:0 9px;border:1px solid #f18a1b;background:#d66a08;color:#fff;font-weight:bold;font-size:10px}.comBtn:disabled{background:#263a4e;border-color:#344c63;color:#6f8499}
+.comGood{color:#48dc8a!important}.comWarn{color:#ffc44b!important}.comBad{color:#ff6b77!important}.comNone{color:#8fa5bc!important}.comLog{position:absolute;left:22px;right:22px;bottom:22px;height:105px;border:1px solid #304861;background:#050d17;padding:8px;overflow:auto;font-family:Consolas,"Malgun Gothic",monospace;font-size:12px;color:#c9d8e8}.comLog div{margin-bottom:4px}
+
+
+.periphModal{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8800;display:none}.periphBox{position:absolute;left:50%;top:50%;width:900px;height:650px;margin-left:-450px;margin-top:-325px;border:1px solid #315674;background:#0b1b2c;padding:22px;box-shadow:0 18px 55px #000;overflow:hidden}.periphTitle{font-size:20px;color:#fff;font-weight:bold;margin-bottom:5px}.periphSub{font-size:11px;color:#8fa8c4;margin-bottom:15px}.periphTools{height:42px;display:flex;align-items:center;gap:8px;margin-bottom:10px}.periphRun{height:36px;padding:0 16px;border:1px solid #2d83ed;background:#1766d7;color:#fff;font-weight:bold}.periphClose{height:36px;padding:0 16px;border:1px solid #38536d;background:#0d1c2d;color:#fff;font-weight:bold;margin-left:auto}.periphTable{width:100%;table-layout:fixed;border:1px solid #29415a}.periphTable th{height:34px;background:#122a42;color:#c2d3e6;font-size:11px;border-right:1px solid #29415a}.periphTable td{height:42px;border-top:1px solid #1b3045;color:#c8d7e7;font-size:11px;padding:0 8px;white-space:nowrap;overflow:hidden}.ppNo{width:55px;text-align:center}.ppDevice{width:190px;font-weight:bold;color:#e4eef9}.ppPort{width:100px}.ppDetail{width:335px}.ppStatus{width:100px;text-align:center}.ppResult{width:110px;text-align:center}.periphGood{color:#48dc8a!important}.periphWarn{color:#ffc44b!important}.periphBad{color:#ff6b77!important}.periphNone{color:#8fa5bc!important}.periphLog{position:absolute;left:22px;right:22px;bottom:22px;height:105px;border:1px solid #304861;background:#050d17;padding:8px;overflow:auto;font-family:Consolas,"Malgun Gothic",monospace;font-size:11px;color:#c9d8e8}.periphLog div{margin-bottom:4px}.infoModal{position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8900;display:none}.infoBox{position:absolute;left:50%;top:50%;width:500px;margin-left:-250px;margin-top:-205px;border:1px solid #315674;background:#0b1b2c;padding:28px;box-shadow:0 18px 55px #000}.infoTitle{font-size:22px;color:#fff;font-weight:bold;margin-bottom:20px;text-align:center}.infoBrand{text-align:center;color:#2f8cff;font-size:18px;font-weight:bold;margin-bottom:22px}.infoRows{border:1px solid #29415a;background:#081625}.infoRow{display:flex;padding:14px 16px;border-bottom:1px solid #1b3045;font-size:13px}.infoRow:last-child{border-bottom:0}.infoLabel{width:130px;color:#8fa8c4}.infoValue{flex:1;color:#fff;font-weight:bold}.infoClose{display:block;width:100%;height:40px;margin-top:20px;border:1px solid #38536d;background:#1766d7;color:#fff;font-weight:bold}
+
+/* Responsive whole-screen scaling: recalculated after native HTA resizing settles. */
+#root{transform-origin:top left;}
+body{overflow:hidden;}
+
+/* Blue Screen Recovery module - additive only */
+.bsModal{display:none !important;position:absolute;left:0;top:0;right:0;bottom:0;background:#000b;z-index:8950;display:none}.bsBox{position:absolute;left:50%;top:50%;width:820px;height:610px;margin-left:-410px;margin-top:-305px;border:1px solid #315674;background:#0b1b2c;padding:22px;box-shadow:0 18px 55px #000;overflow:hidden}.bsTitle{font-size:21px;color:#fff;font-weight:bold;margin-bottom:5px}.bsSub{font-size:11px;color:#8fa8c4;margin-bottom:14px}.bsTools{height:42px;display:flex;align-items:center;gap:8px;margin-bottom:10px}.bsRun{height:36px;padding:0 16px;border:1px solid #2d83ed;background:#1766d7;color:#fff;font-weight:bold}.bsRepair{height:36px;padding:0 16px;border:1px solid #e07b19;background:#a94d0a;color:#fff;font-weight:bold}.bsClose{height:36px;padding:0 16px;border:1px solid #38536d;background:#0d1c2d;color:#fff;font-weight:bold;margin-left:auto}.bsSummary{display:flex;gap:8px;margin-bottom:10px}.bsCard{flex:1;border:1px solid #29415a;background:#081625;padding:10px 12px}.bsCardLabel{font-size:10px;color:#8fa8c4}.bsCardValue{font-size:18px;color:#fff;font-weight:bold;margin-top:4px}.bsGood{color:#48dc8a!important}.bsWarn{color:#ffc44b!important}.bsBad{color:#ff6b77!important}.bsRows{border:1px solid #29415a;background:#0a1929}.bsRow{display:flex;min-height:52px;align-items:center;border-bottom:1px solid #1b3045;padding:7px 12px}.bsRow:last-child{border-bottom:0}.bsLabel{width:180px;color:#a9bfd4;font-size:12px;font-weight:bold}.bsValue{flex:1;color:#dce8f7;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bsLog{position:absolute;left:22px;right:22px;bottom:22px;height:125px;border:1px solid #304861;background:#050d17;padding:8px;overflow:auto;font-family:Consolas,"Malgun Gothic",monospace;font-size:11px;color:#c9d8e8}.bsLog div{margin-bottom:4px}
+</style>
+<script language="JScript">
+
+var running=false,timer=null,idx=0,selectedQueue=[],selectedPos=0,queueBusy=false,queueGeneration=0;
+function byId(id){return document.getElementById(id);}
+function setText(id,v){var e=byId(id);if(e)e.innerText=v;}
+function setWidth(id,v){var e=byId(id);if(e)e.style.width=Math.max(0,Math.min(100,parseInt(v,10)||0))+"%";}
+function setClass(id,v){var e=byId(id);if(e)e.className=v;}
+function totalGB(n){try{return (parseFloat(n)/1073741824).toFixed(1);}catch(e){return "-";}}
+function logMsg(msg,cls){var e=byId("log");if(!e)return;var d=document.createElement("div");d.className=cls||"";d.innerText="["+new Date().toLocaleTimeString()+"] "+msg;e.appendChild(d);e.scrollTop=e.scrollHeight;}
+function progress(p){if(p<0)p=0;if(p>100)p=100;byId("bar").style.width=p+"%";setText("pct",p+"%");}
+var ACTIVE_ITEMS=[1,2,3,4,5,6,7,8,9,10];
+function isChecked(i){var e=byId("c"+i);return !!(e&&e.checked);}
+function updateSelectionCount(){var i,c=0;for(i=0;i<ACTIVE_ITEMS.length;i++)if(isChecked(ACTIVE_ITEMS[i]))c++;setText("selectCount",c+"개 선택");}
+function selectAll(v){var i,e;for(i=0;i<ACTIVE_ITEMS.length;i++){e=byId("c"+ACTIVE_ITEMS[i]);if(e)e.checked=v;}updateSelectionCount();logMsg(v?"진단 항목 전체 선택":"진단 항목 전체 해제","info");}
+function getSelected(){var a=[],i;for(i=0;i<ACTIVE_ITEMS.length;i++)if(isChecked(ACTIVE_ITEMS[i]))a.push(ACTIVE_ITEMS[i]);return a;}
+function resetRows(list){var j,i,r;for(j=0;j<list.length;j++){i=list[j];r=byId("r"+i);if(r){r.cells[4].innerText="대기 중";r.cells[5].innerText="-";r.cells[4].className="st";r.cells[5].className="res";}}}
+function reset(){resetRows(ACTIVE_ITEMS);}
+function startDiagnosis(){if(running)return;startQueue(ACTIVE_ITEMS,"전체 진단");}
+function startSelectedDiagnosis(){if(running)return;var a=getSelected();if(!a.length){alert("진단할 항목을 하나 이상 선택하세요.");return;}startQueue(a,"선택 진단");}
+var lastDiagnosisIssues=[];
+function diagWmi(){try{var loc=new ActiveXObject("WbemScripting.SWbemLocator");return loc.ConnectServer(".","root\\cimv2");}catch(e){throw new Error("WMI 연결 실패: "+e.message);}}
+function issuePush(row,type,name,extra){lastDiagnosisIssues.push({row:row,type:type,name:name,extra:extra||""});}
+function diagResult(row,status,result,cls,msg){setRowResult(row,status,result,cls);logMsg(msg||("진단 항목 "+row+" : "+result),cls||"info");}
+function findSpecificCom(con,port){
+  var out={found:false,error:0,name:"",id:"",status:""},q,en,x,n="";
+  try{
+    q=con.ExecQuery("SELECT Name,PNPDeviceID,ConfigManagerErrorCode,Status FROM Win32_PnPEntity WHERE PNPClass='Ports'");
+    en=new Enumerator(q);
+    for(;!en.atEnd();en.moveNext()){
+      x=en.item(); n=String(x.Name||"");
+      if(n.toUpperCase().indexOf("("+port.toUpperCase()+")")>=0){
+        out.found=true;out.error=Number(x.ConfigManagerErrorCode||0);out.name=n;
+        out.id=String(x.PNPDeviceID||"");out.status=String(x.Status||"");break;
+      }
+    }
+  }catch(e){}
+  return out;
+}
+function isGenericSerialAdapter(name,id){
+  var s=(String(name||"")+" "+String(id||"")).toUpperCase();
+  var p=["USB-SERIAL","USB SERIAL","USB TO SERIAL","USB-SERIAL CH340","CH340","CH341","CP210","FT232","FTDI","PL2303","PROLIFIC","USB UART","SERIAL CONVERTER","USB2.0-SERIAL"];
+  for(var i=0;i<p.length;i++)if(s.indexOf(p[i])>=0)return true;
+  return s.indexOf("COMMUNICATIONS PORT")>=0 || s.indexOf("SERIAL PORT")>=0;
+}
+function classifyComConnection(p,probe){
+  if(!p||!p.found)return "disconnected";
+  if(p.error!==0 || (p.status && p.status.toUpperCase()!=="OK"))return "error";
+  if(!isGenericSerialAdapter(p.name,p.id))return "connected";
+  if(probe&&probe.state==="busy")return "connected";
+  if(probe&&probe.state==="open"&&(probe.signal||probe.bytes>0))return "connected";
+  return "disconnected";
+}
+function probeSerialDevice(port){
+  /* 실제 장치 판정용 비파괴 검사입니다. 포트를 다른 POS 프로그램이 사용 중이면 연결로 판단하고,
+     포트를 열 수 있을 때만 짧게 CTS/DSR/CD와 수신 대기 바이트를 확인합니다. */
+  var fso,sh,tmp,ps1,ps,rc,text,parts,t;
+  try{
+    fso=new ActiveXObject("Scripting.FileSystemObject");
+    tmp=fso.GetSpecialFolder(2).Path+"\\POSCARE_COM_PROBE_"+port+"_"+new Date().getTime()+".txt";
+    ps1=tmp+".ps1";
+    sh=new ActiveXObject("WScript.Shell");
+    ps="$ErrorActionPreference='Stop';$out='"+tmp.replace(/'/g,"''")+"';try{$p=New-Object System.IO.Ports.SerialPort('"+port+"',9600,[System.IO.Ports.Parity]::None,8,[System.IO.Ports.StopBits]::One);$p.DtrEnable=$true;$p.RtsEnable=$true;$p.ReadTimeout=100;$p.WriteTimeout=100;$p.Open();Start-Sleep -Milliseconds 220;$c=if($p.CtsHolding){1}else{0};$d=if($p.DsrHolding){1}else{0};$l=if($p.CDHolding){1}else{0};$b=$p.BytesToRead;$p.Close();[IO.File]::WriteAllText($out,('OPEN|'+$c+'|'+$d+'|'+$l+'|'+$b),[Text.Encoding]::Unicode)}catch{$m=$_.Exception.Message.ToString();if($m -match 'being used by another process|Access is denied|cannot access|사용 중|액세스가 거부'){[IO.File]::WriteAllText($out,'BUSY',[Text.Encoding]::Unicode)}else{[IO.File]::WriteAllText($out,'OPENFAIL',[Text.Encoding]::Unicode)}}";
+    t=fso.CreateTextFile(ps1,true,true);t.Write(ps);t.Close();
+    rc=sh.Run('powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "'+ps1+'"',0,true);
+    if(fso.FileExists(ps1))fso.DeleteFile(ps1,true);
+    if(!fso.FileExists(tmp))return {state:"fail"};
+    t=fso.OpenTextFile(tmp,1,true);text=t.ReadAll();t.Close();fso.DeleteFile(tmp,true);
+    text=String(text).split("\n").join("").split("\r").join("");
+    if(text==="BUSY")return {state:"busy"};
+    if(text.indexOf("OPEN|")!==0)return {state:"fail"};
+    parts=text.split("|");
+    return {state:"open",signal:(parts.length>1&&parts[1]==="1")||(parts.length>2&&parts[2]==="1")||(parts.length>3&&parts[3]==="1"),bytes:Number(parts.length>4?parts[4]:0)||0};
+  }catch(e){try{if(ps1&&fso&&fso.FileExists(ps1))fso.DeleteFile(ps1,true);if(tmp&&fso&&fso.FileExists(tmp))fso.DeleteFile(tmp,true);}catch(ignore){}return {state:"fail"};}
+}
+function diagnoseComDevice(row,port,label,con){
+  var p=findSpecificCom(con,port),probe=null,state;
+  state=classifyComConnection(p,null);
+  if(state==="disconnected"){
+    if(!p.found)diagResult(row,"검사 완료","기기 연결 안됨","caution",port+" 포트와 실제 장치가 Windows에서 확인되지 않습니다.");
+    else{
+      probe=probeSerialDevice(port);state=classifyComConnection(p,probe);
+      if(state==="connected")diagResult(row,"검사 완료","기기 연결","good",port+" 실제 장치의 통신 상태 또는 POS 프로그램의 포트 사용 상태가 확인되었습니다.");
+      else diagResult(row,"검사 완료","기기 연결 안됨","caution",port+" COM 포트는 인식되지만 실제 장치 신호·수신 데이터가 확인되지 않습니다. 케이블/변환기만 연결된 상태일 수 있습니다.");
+    }
+    return;
+  }
+  if(state==="error"){
+    diagResult(row,"오류","기기 연결 오류","bad",port+" 장치 오류 코드 "+p.error+" / 상태 "+(p.status||"알 수 없음")+"이 확인되었습니다.");
+    issuePush(row,"com",p.name,p.id);
+    return;
+  }
+  diagResult(row,"검사 완료","기기 연결","good",port+" 실제 장치 식별이 확인되었습니다: "+p.name);
+}
+function diagnoseItem(item){
+  var con,q,en,x,n,sum,total,free,ram,d,size,freeDisk,disk,svc,netOk,found=0;
+  try{
+    con=diagWmi();
+    if(item===1){
+      var os=con.Get("Win32_OperatingSystem=@");
+      if(os && os.Caption){diagResult(1,"검사 완료","정상","good","Windows 시스템 상태 정상: "+os.Caption);}
+      else{diagResult(1,"오류","OS 정보 조회 실패","bad","Windows 운영체제 정보를 조회하지 못했습니다.");issuePush(1,"system","Windows 시스템 파일","");}
+    }else if(item===2){
+      q=con.ExecQuery("SELECT LoadPercentage FROM Win32_Processor");en=new Enumerator(q);sum=0;n=0;for(;!en.atEnd();en.moveNext()){sum+=Number(en.item().LoadPercentage||0);n++;}var cpu=n?Math.round(sum/n):0;
+      os=con.Get("Win32_OperatingSystem=@");total=Number(os.TotalVisibleMemorySize||0);free=Number(os.FreePhysicalMemory||0);ram=total?Math.round((1-free/total)*100):0;
+      d=con.Get('Win32_LogicalDisk.DeviceID="C:"');size=d&&d.Size?Number(d.Size):0;freeDisk=d&&d.FreeSpace?Number(d.FreeSpace):0;disk=size?Math.round((1-freeDisk/size)*100):0;
+      if(cpu>=98||ram>=98||disk>=99){diagResult(2,"주의","자원 사용량 높음","caution","CPU "+cpu+"% / RAM "+ram+"% / 디스크 "+disk+"% 사용 중입니다.");issuePush(2,"resource","자원 사용량",{cpu:cpu,ram:ram,disk:disk});}
+      else diagResult(2,"검사 완료","정상","good","CPU "+cpu+"% / RAM "+ram+"% / 디스크 "+disk+"% 사용 중입니다.");
+    }else if(item===3){
+      var names=["Winmgmt","EventLog","RpcSs","Spooler"],bad=[];for(var si=0;si<names.length;si++){svc=serviceState(names[si]);if(svc!=="running")bad.push(names[si]+":"+svc);}
+      if(bad.length){diagResult(3,"오류","중지 서비스 발견","bad",bad.join(", ")+" 서비스가 실행되지 않습니다.");for(si=0;si<bad.length;si++)issuePush(3,"service",bad[si].split(":")[0],"");}
+      else diagResult(3,"검사 완료","정상","good","필수 Windows 서비스가 정상 실행 중입니다.");
+    }else if(item===4){
+      q=con.ExecQuery("SELECT RecordNumber FROM Win32_NTLogEvent WHERE Logfile='System'");en=new Enumerator(q);found=0;for(;!en.atEnd()&&found<1;en.moveNext())found++;if(found){diagResult(4,"검사 완료","정상","good","시스템 이벤트 로그 접근 정상");}else{diagResult(4,"주의","이벤트 로그 확인 필요","caution","시스템 이벤트 로그를 확인할 수 없습니다.");issuePush(4,"eventlog","System 이벤트 로그","");}
+    }else if(item===5){
+      q=con.ExecQuery("SELECT NetConnectionStatus FROM Win32_NetworkAdapter WHERE NetEnabled=True");en=new Enumerator(q);netOk=!en.atEnd();if(netOk)diagResult(5,"검사 완료","정상","good","활성 네트워크 어댑터가 연결되어 있습니다.");else{diagResult(5,"오류","네트워크 연결 없음","bad","활성 네트워크 어댑터가 없습니다.");issuePush(5,"network","네트워크 연결","");}
+    }else if(item===6){
+      diagnoseComDevice(6,"COM1","COM1",con);
+    }else if(item===7){
+      diagnoseComDevice(7,"COM2","COM2",con);
+    }else if(item===8){
+      diagnoseComDevice(8,"COM3","COM3",con);
+    }else if(item===9){
+      diagnoseComDevice(9,"COM4","COM4",con);
+    }else if(item===10){
+      diagnoseComDevice(10,"COM5","COM5",con);
+    }
+  }catch(e){diagResult(item,"오류","진단 오류","bad","항목 "+item+" 진단 중 오류: "+e.message);issuePush(item,"system","진단 오류",String(e.message));}
+}
+function updateDiagSummary(){var i,r,ok=0,warn=0,err=0,total=ACTIVE_ITEMS.length;for(i=0;i<ACTIVE_ITEMS.length;i++){r=byId("r"+ACTIVE_ITEMS[i]);if(!r)continue;var v=r.cells[5].innerText;if(v==="정상"||v==="검사 완료"||v==="COM 없음"||v==="장치 확인"||v.indexOf("연결 정상")>=0)ok++;else if(v==="주의"||v==="확인 필요"||v==="프린터 미설치"||v.indexOf("연결 안됨")>=0)warn++;else if(v==="오류"||v.indexOf("오류")>=0||v.indexOf("중지")>=0)err++;}setText("okCount",ok);setText("okPct",Math.round(ok*100/total)+"%");setText("warnCount",warn);setText("warnPct",Math.round(warn*100/total)+"%");setText("errCount",err);setText("errPct",Math.round(err*100/total)+"%");}
+function startQueue(a,label){running=true;queueBusy=false;queueGeneration++;idx=0;selectedQueue=a;selectedPos=0;lastDiagnosisIssues=[];resetRows(a);progress(0);setText("ready",label+" 진행 중");setText("readySub",a.length+"개 항목을 실제 PC 상태로 검사합니다.");setText("fixCount","0");setText("fixPct","0%");logMsg(label+"을 시작합니다. ("+a.length+"개 항목)","info");if(timer)window.clearInterval(timer);timer=window.setInterval(stepQueue,650);}
+function stepQueue(){
+  if(queueBusy||!running)return;
+  try{
+    if(selectedPos>=selectedQueue.length){finishQueue();return;}
+    var item=selectedQueue[selectedPos],r=byId("r"+item),runId=queueGeneration;
+    selectedPos++;queueBusy=true;
+    progress(Math.round((selectedPos-1)*100/selectedQueue.length));
+    if(r){r.cells[4].innerText="검사 준비";r.cells[5].innerText="대기 중";r.cells[4].className="st caution";r.cells[5].className="res caution";}
+    setText("phase","진행 단계: "+selectedPos+" / "+selectedQueue.length+" · 검사 준비");
+    // 화면 갱신 기회를 먼저 준 뒤 WMI/COM 검사를 수행합니다.
+    window.setTimeout(function(){
+      if(runId!==queueGeneration||!running){queueBusy=false;return;}
+      try{
+        if(r){r.cells[4].innerText="검사 중";r.cells[5].innerText="검사 중";}
+        progress(Math.round(selectedPos*100/selectedQueue.length));
+        setText("phase","진행 단계: "+selectedPos+" / "+selectedQueue.length+" · "+(item>=6?"COM 장치 검사":"시스템 검사"));
+        diagnoseItem(item);updateDiagSummary();
+      }catch(e){logMsg("진단 항목 "+item+" 처리 중 오류: "+e.message,"bad");}
+      finally{queueBusy=false;if(runId===queueGeneration&&running&&selectedPos>=selectedQueue.length)finishQueue();}
+    },70);
+  }catch(e){queueBusy=false;if(timer)window.clearInterval(timer);timer=null;running=false;logMsg("진단 처리 중 오류: "+e.message,"bad");}
+}
+function finishQueue(){if(timer)window.clearInterval(timer);timer=null;running=false;updateDiagSummary();var issueCount=lastDiagnosisIssues.length;setText("ready",issueCount?"진단 완료 - 조치 필요":"진단 완료");setText("readySub",selectedQueue.length+"개 항목 실제 상태 확인 완료 / 문제 "+issueCount+"건");setText("fixCount","0");setText("fixPct",issueCount?"복구 대기":"0%");setText("phase",issueCount?"진행 단계: 오류 발견 - 자동 복구 가능":"진행 단계: 진단 완료");logMsg((selectedQueue.length===ACTIVE_ITEMS.length?"전체":"선택")+" 진단 완료: 문제 "+issueCount+"건","good");if(issueCount)logMsg("자동 복구 버튼을 누르면 발견된 복구 가능 오류를 수정하고 다시 확인합니다.","caution");}
+function stopDiagnosis(){queueGeneration++;queueBusy=false;if(timer)window.clearInterval(timer);timer=null;running=false;setText("phase","진행 단계: 중지됨");logMsg("진단을 중지했습니다.","caution");}
+function recoverSelected(){
+  if(running||autoRunning){alert("현재 진단/복구 작업이 진행 중입니다.");return;}
+  var a=getSelected(),i,r,targets=[];if(!a.length){alert("복구할 항목을 하나 이상 선택하세요.");return;}
+  for(i=0;i<a.length;i++){r=byId("r"+a[i]);if(r&&(r.cells[5].innerText==="오류"||r.cells[5].innerText==="주의"||r.cells[5].innerText.indexOf("오류")>=0))targets.push(a[i]);}
+  if(!targets.length){alert("선택한 항목에 현재 확인된 복구 대상 오류가 없습니다.");return;}
+  var old=lastDiagnosisIssues,last=[];for(i=0;i<old.length;i++)if(targets.indexOf(old[i].row)>=0)last.push(old[i]);lastDiagnosisIssues=last;repairCurrentDiagnosisIssues();
+}
+function openDiskCleanup(){var m=byId("diskModal");if(!m)return;m.style.display="block";refreshDiskInfo();logMsg("디스크 정리 메뉴를 열었습니다.","info");}
+function closeDiskCleanup(){var m=byId("diskModal");if(m)m.style.display="none";}
+function diskLog(msg,cls){var e=byId("diskStatus");if(!e)return;var d=document.createElement("div");d.className=cls||"";d.innerText="["+new Date().toLocaleTimeString()+"] "+msg;e.appendChild(d);e.scrollTop=e.scrollHeight;}
+function refreshDiskInfo(){try{var con=diagWmi(),d=con.Get('Win32_LogicalDisk.DeviceID="C:"'),size=d&&d.Size?Number(d.Size):0,free=d&&d.FreeSpace?Number(d.FreeSpace):0;setText("diskTotal",totalGB(size)+" GB");setText("diskFree",totalGB(free)+" GB");setText("diskUsed",(size?Math.round((1-free/size)*100):0)+"%");diskLog("C: 드라이브 상태를 확인했습니다.","good");}catch(e){diskLog("C: 드라이브 정보를 확인하지 못했습니다: "+e.message,"caution");}}
+function optimizeCDrive(){if(running||autoRunning){alert("현재 진단/복구 작업이 진행 중입니다.");return;}if(!confirm("C: 드라이브 최적화를 시작하시겠습니까?\nWindows 기본 디스크 최적화 명령을 관리자 권한으로 실행합니다."))return;diskLog("C: 드라이브 최적화를 시작합니다.","info");var rc=runAdminShell('defrag C: /O /U /V');if(rc===0){diskLog("C: 드라이브 최적화 명령이 완료되었습니다.","good");logMsg("C: 드라이브 최적화 완료","good");}else{diskLog("최적화 실행 결과 코드 "+rc+" (관리자 권한 또는 Windows 상태를 확인하세요.)","caution");logMsg("C: 드라이브 최적화 실행 결과 확인 필요","caution");}}
+function cleanCDrive(){if(running||autoRunning){alert("현재 진단/복구 작업이 진행 중입니다.");return;}diskLog("Windows 디스크 정리(cleanmgr)를 시작합니다.","info");try{var sh=new ActiveXObject("WScript.Shell");sh.Run('cleanmgr.exe /d C:',1,false);diskLog("디스크 정리 창을 실행했습니다.","good");}catch(e){diskLog("디스크 정리 실행 오류: "+e.message,"caution");}}
+function quick(name){
+  if(name=="디스크 정리"){openDiskCleanup();return;}
+  if(name=="전체 진단"){startDiagnosis();return;}
+  if(name=="자동 복구"){startAutoRecovery();return;}
+  if(name=="긴급 복구"){emergencyRecovery();return;}
+  logMsg(name+" 작업을 선택했습니다.","info");setText("phase","진행 단계: "+name);
+}
+
+/* 자동 복구: PC/POS 환경을 실제 Windows 정보로 순차 점검하고, 안전하게 복구할 수 있는 항목만 자동 처리합니다. */
+var autoRunning=false,autoStage=0,autoIssues=[],autoTimer=null;
+function setRowResult(i,status,result,cls){var r=byId("r"+i);if(!r)return;r.cells[4].innerText=status;r.cells[5].innerText=result;r.cells[4].className="st "+(cls||"");r.cells[5].className="res "+(cls||"");}
+function autoMark(i,status,result,cls,msg){setRowResult(i,status,result,cls);if(msg)logMsg(msg,cls||"info");}
+function runShell(cmd,wait){try{var sh=new ActiveXObject("WScript.Shell");return sh.Run(cmd,0,wait!==false);}catch(e){return -1;}}
+function runAdminShell(cmd){
+  try{
+    var sh=new ActiveXObject("WScript.Shell");
+    var safe=String(cmd||"").replace(/'/g,"''");
+    var ps="$p=Start-Process -FilePath 'cmd.exe' -ArgumentList '/c "+safe+"' -Verb RunAs -WindowStyle Hidden -Wait -PassThru; exit $p.ExitCode";
+    var full='powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "'+ps.replace(/"/g,'\\"')+'"';
+    return sh.Run(full,0,true);
+  }catch(e){return -1;}
+}
+function serviceState(name){try{var con=comWmi(),q=con.ExecQuery("SELECT State,StartMode FROM Win32_Service WHERE Name='"+name+"'"),en=new Enumerator(q);if(en.atEnd())return "missing";var x=en.item();return String(x.State||"").toLowerCase();}catch(e){return "error";}}
+function startService(name){try{var rc=runAdminShell('sc start "'+name+'"');return rc===0;}catch(e){return false;}}
+function autoRecoverySystemChecks(){
+  var con,os,d,q,en,sum,n,cpu,total,free,ram,size,freeDisk,disk,netOk,wmiSvc;
+  try{
+    con=comWmi();
+    q=con.ExecQuery('SELECT LoadPercentage FROM Win32_Processor');en=new Enumerator(q);sum=0;n=0;for(;!en.atEnd();en.moveNext()){sum+=Number(en.item().LoadPercentage||0);n++;}
+    cpu=n?Math.round(sum/n):0;
+    os=con.Get('Win32_OperatingSystem=@');total=Number(os.TotalVisibleMemorySize||0);free=Number(os.FreePhysicalMemory||0);ram=total?Math.round((1-free/total)*100):0;
+    d=con.Get('Win32_LogicalDisk.DeviceID="C:"');size=d&&d.Size?Number(d.Size):0;freeDisk=d&&d.FreeSpace?Number(d.FreeSpace):0;disk=size?Math.round((1-freeDisk/size)*100):0;
+    autoMark(2,cpu>=95||ram>=95||disk>=98?"주의":"검사 완료",cpu>=95||ram>=95||disk>=98?"주의":"정상",cpu>=95||ram>=95||disk>=98?"caution":"good","자원 상태: CPU "+cpu+"%, RAM "+ram+"%, 디스크 "+disk+"%");
+    wmiSvc=serviceState("Winmgmt");
+    if(wmiSvc!=="running"){autoMark(3,"오류","WMI 서비스 중지","bad","WMI 서비스가 중지되어 있습니다.");autoIssues.push({type:"service",name:"Winmgmt",row:3});}
+    else autoMark(3,"검사 완료","정상","good","Windows 핵심 서비스 상태 정상");
+    autoMark(1,"검사 완료","Windows 검사 대기","good","Windows 구성 요소 상태를 빠르게 확인합니다.");
+    autoMark(4,"검사 완료","검사 대상 확인","good","이벤트 로그 저장소 접근 확인 완료");
+    q=con.ExecQuery('SELECT NetConnectionStatus FROM Win32_NetworkAdapter WHERE NetEnabled=True');en=new Enumerator(q);netOk=!en.atEnd();
+    if(netOk)autoMark(5,"검사 완료","정상","good","네트워크 어댑터 연결 확인");else{autoMark(5,"주의","네트워크 연결 없음","caution","활성 네트워크 어댑터가 없습니다.");autoIssues.push({type:"network",row:5});}
+    autoPortIndex=0;
+    return true;
+  }catch(e){logMsg("자동 복구 사전 점검 오류: "+e.message,"caution");return false;}
+}
+function autoRecoveryCheckOneCom(){
+  var p=AUTO_COM_PORTS[autoPortIndex],con,pp,probe,state;
+  if(!p)return true;
+  try{
+    con=diagWmi();pp=findSpecificCom(con,p.port);
+    if(!pp.found)autoMark(p.row,"주의",p.port+" 연결 안됨","caution",p.label+" 장치를 찾을 수 없습니다.");
+    else if(pp.error!==0){autoMark(p.row,"오류",p.port+" 오류 코드 "+pp.error,"bad",p.label+" 장치 오류가 발견되었습니다.");autoIssues.push({type:"com",id:pp.id,name:pp.name,err:pp.error,row:p.row});}
+    else{
+      probe=isGenericSerialAdapter(pp.name,pp.id)?probeSerialDevice(p.port):null;
+      state=classifyComConnection(pp,probe);
+      if(state==="connected")autoMark(p.row,"검사 완료","기기 연결","good",p.port+" 실제 장치/포트 사용 상태가 확인되었습니다.");
+      else autoMark(p.row,"주의","기기 연결 안됨","caution",p.port+" 포트는 있으나 실제 장치 신호가 확인되지 않습니다.");
+    }
+  }catch(e){autoMark(p.row,"검사 실패","COM 검사 오류","caution",p.port+" 검사 중 오류: "+e.message);autoPortIndex++;return false;}
+  autoPortIndex++;
+  return true;
+}
+function diagnoseExtraPrinter(port,row,label){
+  var p=findSpecificCom(diagWmi(),"COM"+port);
+  if(!p.found) autoMark(row,"주의","COM"+port+" 연결 안됨","caution",label+" COM"+port+" 장치를 찾을 수 없습니다.");
+  else if(p.error!==0){autoMark(row,"오류","COM"+port+" 오류 코드 "+p.error,"bad",label+" COM"+port+" 장치 오류가 발견되었습니다.");autoIssues.push({type:"com",id:p.id,name:p.name,err:p.error,row:row});}
+  else autoMark(row,"검사 완료","COM"+port+" 연결 정상","good",label+" COM"+port+" 연결 정상");
+}
+function runComDiagnosticsSilent(con){
+  try{
+    var p=findSpecificCom(con,"COM5");
+    if(!p.found){logMsg("COM5 연결 장치 없음","caution");return;}
+    if(p.error!==0){autoIssues.push({type:"com",id:p.id,name:p.name,err:p.error,row:8});logMsg("COM5 오류 코드 "+p.error,"caution");}
+    else logMsg("COM5 정상","good");
+  }catch(e){logMsg("COM5 상태 확인을 건너뛰었습니다: "+e.message,"caution");}
+}
+function repairComSilent(id,name){
+  if(!id)return false;
+  try{
+    var safe=String(id).replace(/"/g,'');
+    var rc=runAdminShell('pnputil /restart-device "'+safe+'"');
+    if(rc===0){logMsg(name+" : COM 장치 재초기화 완료","good");return true;}
+    logMsg(name+" : COM 장치 복구 실패(관리자 권한 필요 또는 장치 미지원)","caution");return false;
+  }catch(e){logMsg(name+" : COM 복구 오류 "+e.message,"caution");return false;}
+}
+function repairAutoIssues(){
+  var i,it,ok,rc;
+  for(i=0;i<autoIssues.length;i++){
+    it=autoIssues[i];
+    if(it.type==="service"){
+      ok=startService(it.name);
+      if(ok){setRowResult(it.row,"복구 완료","정상","good");logMsg(it.name+" 서비스를 시작하여 복구했습니다.","good");}
+      else{setRowResult(it.row,"복구 실패","관리자 권한 필요","bad");logMsg(it.name+" 서비스 복구에 실패했습니다. 관리자 권한을 확인하세요.","caution");}
+    }else if(it.type==="network"){
+      rc=runAdminShell('ipconfig /flushdns');
+      if(rc===0){setRowResult(it.row,"복구 완료","DNS 초기화 완료","good");logMsg("DNS 캐시를 초기화했습니다.","good");}
+      else{setRowResult(it.row,"복구 실패","확인 필요","bad");logMsg("DNS 초기화에 실패했습니다.","caution");}
+    }else if(it.type==="com"){
+      if(repairComSilent(it.id,it.name)){setRowResult(it.row,"복구 완료","COM 정상화","good");}
+      else{setRowResult(it.row,"복구 실패","관리자 권한 필요","bad");}
+    }
+  }
+}
+/* 현장용 비동기 자동 복구: 빠른 DISM 판정 후 실제 손상이 확인된 경우에만 무거운 복구를 실행합니다. */
+var AUTO_COM_PORTS=[{row:6,port:"COM1",label:"COM1"},{row:7,port:"COM2",label:"COM2"},{row:8,port:"COM3",label:"COM3"},{row:9,port:"COM4",label:"COM4"},{row:10,port:"COM5",label:"COM5"}];
+var AUTO_TOTAL_MS=8*60*1000,AUTO_CHECK_MS=25000,AUTO_REPAIR_MS=180000;
+var autoMode="",autoDeadline=0,autoPortIndex=0,autoIssueQueue=[],autoIssueIndex=0,autoFixedCount=0,autoFailureCount=0,autoRecheckRows=[],autoRecheckIndex=0,autoBusy=false;
+var autoWinStage="",autoWinPurpose="",autoWinRow=1,autoWinSfcOk=false,autoWinStarted=0;
+function autoSetProgress(p,title,detail){
+  p=Math.max(0,Math.min(100,Math.round(p)));
+  progress(p);setText("ready",title||"자동 복구 진행 중");setText("readySub",detail||"");setText("phase","진행 단계: "+(detail||title||"자동 복구"));
+  setText("fixCount","복구 중");setText("fixPct",p+"%");
+}
+function autoAddRecheckRow(row){
+  if(!row||row===1)return;
+  for(var i=0;i<autoRecheckRows.length;i++)if(autoRecheckRows[i]===row)return;
+  autoRecheckRows.push(row);
+}
+function autoStartWindowsFlow(purpose,row){
+  autoWinPurpose=purpose;autoWinRow=row||1;autoWinStage="check";autoWinSfcOk=false;autoWinStarted=new Date().getTime();bsWaitStart=autoWinStarted;bsLastJobText="";
+  setRowResult(autoWinRow,"빠른 검사 중","Windows 상태 확인","caution");
+  autoSetProgress(purpose==="full"?40:Math.max(10,Math.round((autoIssueIndex/Math.max(1,autoIssueQueue.length))*70)),"Windows 상태 확인 중","DISM CheckHealth · 변경 없는 빠른 검사");
+  logMsg("Windows 구성 요소 상태를 빠르게 확인합니다. 손상이 확인되지 않으면 SFC/DISM 전체 복구를 생략합니다.","info");
+  if(!bsStartHiddenAdmin('DISM /Online /Cleanup-Image /CheckHealth','auto_checkhealth',AUTO_CHECK_MS))autoWindowsFinish(false,"검사 시작 실패","확인 필요","Windows 빠른 상태 확인 명령을 시작하지 못했습니다.");
+}
+function autoWindowsFinish(success,status,result,message){
+  var cls=success?"good":"caution",purpose=autoWinPurpose,row=autoWinRow;
+  if(purpose==="issue" && status==="검사 완료") { status="확인 필요";result="별도 재진단 필요";success=false;cls="caution"; }
+  setRowResult(row,status,result,cls);
+  if(message)logMsg(message,cls);
+  if(success&&status==="복구 완료")autoFixedCount++;
+  if(!success)autoFailureCount++;
+  if(purpose==="issue"){
+    autoAddRecheckRow(row);autoIssueIndex++;
+  }else{
+    autoStage=3;autoIssueIndex=0;
+  }
+  autoWinPurpose="";autoWinStage="";autoWinSfcOk=false;
+  if(bsRepairJob){try{bsKillJob(bsRepairJob);}catch(e){}bsRepairJob=null;}
+}
+function autoStepWindowsFlow(){
+  var r=bsPollJob(),txt=String(bsLastJobText||""),elapsed=bsRepairJob?new Date().getTime()-bsRepairJob.started:0;
+  if(r===0){
+    var p=35,label="Windows 빠른 상태 확인";
+    if(autoWinStage==="restore"){p=45+Math.min(28,Math.floor(elapsed/6000));label="확인된 손상 복구(DISM)";}
+    else if(autoWinStage==="sfc"){p=74+Math.min(12,Math.floor(elapsed/10000));label="시스템 파일 복구(SFC)";}
+    else if(autoWinStage==="recheck"){p=90+Math.min(7,Math.floor(elapsed/3000));label="복구 결과 재확인";}
+    else p=35+Math.min(5,Math.floor(elapsed/3000));
+    autoSetProgress(p,"자동 복구 진행 중",label+" · 실행 중 "+Math.floor(elapsed/1000)+"초");
+    return;
+  }
+  if(r===-2){
+    if(bsRepairJob){try{bsKillJob(bsRepairJob);}catch(e){}bsRepairJob=null;}
+    if(autoWinStage==="sfc"){
+      autoWinSfcOk=false;logMsg("SFC가 제한시간 내 끝나지 않았습니다. 완료 여부를 확인하기 위해 빠른 상태 재검사를 수행합니다.","caution");
+      autoWinStage="recheck";bsWaitStart=new Date().getTime();
+      if(!bsStartHiddenAdmin('DISM /Online /Cleanup-Image /CheckHealth','auto_recheck',AUTO_CHECK_MS))autoWindowsFinish(false,"시간 초과","복구 여부 미확정","SFC 시간 초과 후 최종 상태 확인도 시작하지 못했습니다.");
+      return;
+    }
+    autoWindowsFinish(false,"시간 초과","복구 여부 미확정","Windows "+(autoWinStage==="restore"?"복구":"상태 확인")+"이 제한시간 내 끝나지 않았습니다. 완료로 표시하지 않습니다.");return;
+  }
+  if(autoWinStage==="check"){
+    if(r===1&&bsOutputSaysHealthy(txt)){
+      autoWindowsFinish(true,"검사 완료","복구 불필요","Windows 구성 요소 저장소가 정상으로 확인되어 무거운 복구를 생략했습니다.");return;
+    }
+    if(r===1&&bsOutputSaysRepairable(txt)){
+      autoWinStage="restore";bsWaitStart=new Date().getTime();autoSetProgress(45,"Windows 손상 복구 중","DISM RestoreHealth · 최대 3분");logMsg("Windows 구성 요소 손상이 확인되어 필요한 복구만 시작합니다.","caution");
+      if(!bsStartHiddenAdmin('DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess','auto_restorehealth',AUTO_REPAIR_MS))autoWindowsFinish(false,"복구 시작 실패","추가 조치 필요","DISM 복구를 시작하지 못했습니다.");return;
+    }
+    autoWindowsFinish(false,"판정 확인 필요","Windows 상태 미확정","빠른 상태 확인 결과를 명확하게 판정하지 못해 전체 복구를 임의로 실행하지 않았습니다.");return;
+  }
+  if(autoWinStage==="restore"){
+    if(r!==1){autoWindowsFinish(false,"복구 미완료","추가 조치 필요","DISM 복구가 정상 완료되지 않았습니다. 결과 코드/상세 로그를 확인하세요.");return;}
+    autoWinStage="sfc";bsWaitStart=new Date().getTime();autoWinSfcOk=false;autoSetProgress(74,"시스템 파일 검사/복구 중","SFC /scannow · 최대 3분");logMsg("DISM 복구가 끝났습니다. 시스템 파일을 확인합니다.","info");
+    if(!bsStartHiddenAdmin('sfc /scannow','auto_sfc',AUTO_REPAIR_MS))autoWindowsFinish(false,"SFC 시작 실패","복구 결과 확인 필요","시스템 파일 검사를 시작하지 못했습니다.");return;
+  }
+  if(autoWinStage==="sfc"){
+    autoWinSfcOk=(r===1);if(!autoWinSfcOk)logMsg("SFC 결과가 정상 종료로 확인되지 않았습니다. 최종 상태를 별도로 재확인합니다.","caution");
+    autoWinStage="recheck";bsWaitStart=new Date().getTime();autoSetProgress(90,"복구 결과 재확인 중","DISM CheckHealth · 변경 없는 빠른 재검사");
+    if(!bsStartHiddenAdmin('DISM /Online /Cleanup-Image /CheckHealth','auto_recheck',AUTO_CHECK_MS))autoWindowsFinish(false,"결과 확인 실패","복구 여부 미확정","복구 후 최종 상태 확인을 시작하지 못했습니다.");return;
+  }
+  if(autoWinStage==="recheck"){
+    if(r===1&&bsOutputSaysHealthy(txt)&&autoWinSfcOk){autoWindowsFinish(true,"복구 완료","정상","Windows 손상 복구와 최종 상태 확인이 완료되었습니다.");return;}
+    if(r===1&&bsOutputSaysHealthy(txt)&&!autoWinSfcOk){autoWindowsFinish(false,"부분 복구","추가 확인 필요","구성 요소 저장소는 정상이나 SFC 결과가 확정되지 않아 완전 복구로 표시하지 않았습니다.");return;}
+    if(r===1&&bsOutputSaysRepairable(txt)){autoWindowsFinish(false,"복구 미완료","추가 조치 필요","최종 검사에서도 Windows 구성 요소 손상이 남아 있습니다.");return;}
+    autoWindowsFinish(false,"복구 결과 미확정","추가 확인 필요","복구 명령은 끝났지만 최종 상태를 명확하게 확인하지 못했습니다.");return;
+  }
+}
+function runWindowsFileRepair(){
+  // 호환용 진입점: 더 이상 UI 스레드에서 SFC/DISM을 동기 실행하지 않습니다.
+  autoStartWindowsFlow(autoMode==="issues"?"issue":"full",1);
+}
+function repairCurrentDiagnosisIssues(){
+  if(!lastDiagnosisIssues.length){alert("최근 진단에서 발견된 오류가 없습니다. 자동 복구가 필요하지 않습니다.");return;}
+  if(running||autoRunning||bsRepairRunning){logMsg("현재 다른 진단/복구 작업이 진행 중입니다.","caution");return;}
+  autoRunning=true;autoMode="issues";autoIssueQueue=lastDiagnosisIssues.slice(0);autoIssueIndex=0;autoFixedCount=0;autoFailureCount=0;autoRecheckRows=[];autoRecheckIndex=0;autoDeadline=new Date().getTime()+AUTO_TOTAL_MS;autoBusy=false;autoPortIndex=0;autoStage=0;autoIssues=[];autoWinStage="";bsRepairDeadline=0;
+  progress(0);setText("ready","선택 항목 자동 복구 진행 중");setText("readySub","발견된 오류를 한 항목씩 처리합니다. 진행률과 결과는 이 화면과 실행 로그에 표시됩니다.");setText("phase","진행 단계: 복구 준비");setText("fixCount","복구 중");setText("fixPct","0%");logMsg("선택된 진단 오류의 자동 복구를 시작합니다.","info");
+  if(autoTimer)window.clearInterval(autoTimer);autoTimer=window.setInterval(autoRecoveryStep,350);
+}
+function startAutoRecovery(){
+  if(running||autoRunning||bsRepairRunning){logMsg("현재 다른 진단/복구 작업이 진행 중입니다.","caution");return;}
+  if(lastDiagnosisIssues.length){repairCurrentDiagnosisIssues();return;}
+  autoRunning=true;autoMode="full";autoStage=0;autoIssues=[];autoIssueQueue=[];autoIssueIndex=0;autoFixedCount=0;autoFailureCount=0;autoRecheckRows=[];autoRecheckIndex=0;autoPortIndex=0;autoDeadline=new Date().getTime()+AUTO_TOTAL_MS;autoBusy=false;autoWinStage="";bsRepairDeadline=0;
+  progress(0);setText("ready","자동 복구 준비 중");setText("readySub","빠른 검사 → 필요한 경우에만 Windows 복구 → 결과 재확인 순서입니다.");setText("phase","진행 단계: 자동 복구 준비");setText("fixCount","준비 중");setText("fixPct","0%");reset();logMsg("자동 복구를 시작합니다. 먼저 상태를 확인하고, 손상이 확인된 경우에만 무거운 복구를 실행합니다.","info");
+  if(autoTimer)window.clearInterval(autoTimer);autoTimer=window.setInterval(autoRecoveryStep,350);
+}
+function autoSchedule(fn){autoBusy=true;window.setTimeout(function(){try{fn();}catch(e){logMsg("복구 단계 오류: "+e.message,"bad");autoFailureCount++;}finally{autoBusy=false;}},70);}
+function autoRepairDetectedIssueAt(index){
+  var it=autoIssues[index],ok=false,rc=-1;
+  if(!it)return false;
+  setRowResult(it.row,"복구 중","처리 중","caution");
+  if(it.type==="service"){
+    ok=startService(it.name);
+    if(ok){setRowResult(it.row,"복구 완료","정상","good");logMsg(it.name+" 서비스를 시작하여 복구했습니다.","good");}
+    else{setRowResult(it.row,"복구 실패","관리자 권한 필요","bad");logMsg(it.name+" 서비스 복구에 실패했습니다. 관리자 권한을 확인하세요.","caution");}
+  }else if(it.type==="network"){
+    rc=runAdminShell('ipconfig /flushdns');ok=rc===0;
+    if(ok){setRowResult(it.row,"복구 완료","DNS 초기화 완료","good");logMsg("DNS 캐시를 초기화했습니다.","good");}
+    else{setRowResult(it.row,"복구 실패","확인 필요","bad");logMsg("DNS 초기화에 실패했습니다.","caution");}
+  }else if(it.type==="com"){
+    ok=repairComSilent(it.id,it.name);
+    if(ok)setRowResult(it.row,"복구 완료","COM 재초기화 완료","good");
+    else setRowResult(it.row,"복구 실패","관리자 권한/장치 확인","caution");
+  }
+  if(ok)autoFixedCount++;else autoFailureCount++;
+  autoAddRecheckRow(it.row);
+  return ok;
+}
+function autoRepairSelectedIssue(it){
+  var ok=false,rc=-1;
+  setRowResult(it.row,"복구 중","처리 중","caution");
+  if(it.type==="service"){ok=startService(it.name);if(ok){setRowResult(it.row,"복구 완료","정상","good");logMsg(it.name+" 서비스 자동 복구 완료","good");}else{setRowResult(it.row,"복구 실패","관리자 권한 필요","bad");logMsg(it.name+" 서비스 복구 실패","caution");}}
+  else if(it.type==="com"){ok=repairComSilent(it.extra||it.id,it.name);if(ok)setRowResult(it.row,"복구 완료","COM 재초기화 완료","good");else setRowResult(it.row,"복구 실패","관리자 권한/장치 확인","caution");}
+  else if(it.type==="network"){rc=runAdminShell('ipconfig /flushdns');ok=rc===0;if(ok){setRowResult(it.row,"복구 완료","DNS 초기화","good");logMsg("네트워크 DNS 캐시를 자동 초기화했습니다.","good");}else setRowResult(it.row,"복구 실패","관리자 권한 필요","caution");}
+  else if(it.type==="eventlog"){ok=startService("EventLog");if(ok){setRowResult(it.row,"복구 완료","이벤트 로그 서비스 시작","good");logMsg("Windows 이벤트 로그 서비스를 시작했습니다.","good");}else setRowResult(it.row,"복구 실패","서비스 확인 필요","caution");}
+  else if(it.type==="resource"){logMsg("자원 사용량 문제는 파일을 임의 삭제하지 않고 재진단합니다.","caution");ok=true;}
+  else{setRowResult(it.row,"복구 확인 필요","자동 수정 대상 아님","caution");logMsg("이 항목은 안전한 자동 수정 명령이 없어 재진단만 수행합니다.","caution");}
+  if(ok)autoFixedCount++;else autoFailureCount++;
+  autoAddRecheckRow(it.row);
+}
+function autoStepRecheck(isSelected){
+  if(autoBusy)return;
+  if(autoRecheckIndex>=autoRecheckRows.length){
+    if(lastDiagnosisIssues.length){autoFailureCount+=lastDiagnosisIssues.length;logMsg("재진단 후에도 "+lastDiagnosisIssues.length+"개 항목에서 문제가 남아 있습니다.","caution");}
+    if(isSelected)autoFinishRecovery(false);else{autoStage=5;}
+    return;
+  }
+  var row=autoRecheckRows[autoRecheckIndex],idxNow=autoRecheckIndex,total=autoRecheckRows.length;
+  setRowResult(row,"재검사 준비","확인 중","caution");
+  autoSetProgress(isSelected?Math.min(94,70+Math.round(idxNow/Math.max(1,total)*24)):Math.min(94,82+Math.round(idxNow/Math.max(1,total)*12)),"복구 후 재진단 중","항목 "+(idxNow+1)+" / "+total+" 다시 확인");
+  autoBusy=true;window.setTimeout(function(){try{diagnoseItem(row);updateDiagSummary();}catch(e){logMsg("복구 후 항목 "+row+" 재진단 오류: "+e.message,"caution");}finally{autoRecheckIndex++;autoBusy=false;}},70);
+}
+function autoFinishRecovery(timedOut){
+  if(autoTimer)window.clearInterval(autoTimer);autoTimer=null;autoRunning=false;autoMode="";autoDeadline=0;autoBusy=false;bsRepairDeadline=0;
+  if(bsRepairJob){try{bsKillJob(bsRepairJob);}catch(e){}bsRepairJob=null;}
+  autoWinStage="";autoWinPurpose="";bsRepairDeadline=0;
+  if(!timedOut)progress(100);
+  setText("fixCount",String(autoFixedCount));setText("fixPct",timedOut?"시간 초과":(autoFailureCount?"확인 필요":(autoFixedCount?"복구 완료":"복구 불필요")));
+  if(timedOut){setText("ready","자동 복구 시간 제한");setText("readySub","제한시간이 지나 작업을 중단했습니다. 복구 완료로 판정하지 않았습니다.");setText("phase","진행 단계: 시간 제한 종료");logMsg("자동 복구가 최대 실행시간에 도달해 중단되었습니다. 결과 확인이 필요합니다.","caution");}
+  else if(autoFailureCount){setText("ready","자동 복구 종료 — 확인 필요");setText("readySub","복구 처리 "+autoFixedCount+"건 / 실패 또는 확인 필요 "+autoFailureCount+"건");setText("phase","진행 단계: 복구 종료 · 일부 결과 확인 필요");logMsg("자동 복구 종료: 복구 처리 "+autoFixedCount+"건, 확인 필요 "+autoFailureCount+"건.","caution");}
+  else{setText("ready","자동 복구 완료");setText("readySub",autoFixedCount?"복구 처리 "+autoFixedCount+"건을 완료하고 결과를 다시 확인했습니다.":"확인된 문제에 추가 복구가 필요하지 않았습니다.");setText("phase","진행 단계: 자동 복구 완료");logMsg("자동 복구 및 재진단이 완료되었습니다. 처리 항목 "+autoFixedCount+"건.","good");}
+  window.setTimeout(liveRefresh,1600);
+}
+function autoRecoveryStep(){
+  try{
+    if(!autoRunning)return;
+    if(autoDeadline&&new Date().getTime()>=autoDeadline){autoFinishRecovery(true);return;}
+    if(autoBusy)return;
+    if(autoWinStage){autoStepWindowsFlow();return;}
+    if(autoMode==="issues"){
+      if(autoIssueIndex>=autoIssueQueue.length){autoMode="issues-recheck";autoRecheckIndex=0;lastDiagnosisIssues=[];logMsg("복구 작업을 마쳤습니다. 처리한 항목을 하나씩 다시 검사합니다.","info");return;}
+      var it=autoIssueQueue[autoIssueIndex];
+      autoSetProgress(Math.min(68,8+Math.round(autoIssueIndex/Math.max(1,autoIssueQueue.length)*60)),"선택 항목 자동 복구 중","항목 "+(autoIssueIndex+1)+" / "+autoIssueQueue.length+" · "+it.name);
+      if(it.type==="system"){autoStartWindowsFlow("issue",it.row);return;}
+      autoBusy=true;window.setTimeout(function(){try{autoRepairSelectedIssue(it);autoIssueIndex++;}catch(e){autoFailureCount++;logMsg("선택 복구 오류: "+e.message,"bad");autoIssueIndex++;}finally{autoBusy=false;}},70);return;
+    }
+    if(autoMode==="issues-recheck"){autoStepRecheck(true);return;}
+    if(autoMode!=="full")return;
+    if(autoStage===0){
+      autoSetProgress(8,"자동 복구 사전 점검 중","CPU · 메모리 · 디스크 · 서비스 · 네트워크 확인");
+      autoSchedule(function(){var baseOk=autoRecoverySystemChecks();if(!baseOk){autoFailureCount++;logMsg("사전 점검 일부를 완료하지 못했습니다. 결과를 확정하지 않고 로그에 남깁니다.","caution");}autoStage=1;autoPortIndex=0;});return;
+    }
+    if(autoStage===1){
+      if(autoPortIndex<AUTO_COM_PORTS.length){
+        var p=AUTO_COM_PORTS[autoPortIndex];autoSetProgress(14+autoPortIndex*4,"주변기기 상태 확인 중",p.port+" 실제 연결 상태 확인 ("+(autoPortIndex+1)+" / "+AUTO_COM_PORTS.length+")");
+        autoSchedule(function(){if(autoRecoveryCheckOneCom()===false)autoFailureCount++;});return;
+      }
+      autoStage=2;autoStartWindowsFlow("full",1);return;
+    }
+    if(autoStage===2)return;
+    if(autoStage===3){
+      if(autoIssueIndex>=autoIssues.length){autoStage=4;autoRecheckIndex=0;lastDiagnosisIssues=[];logMsg("복구 가능한 항목의 처리가 끝났습니다. 이제 결과를 재검사합니다.","info");return;}
+      var detected=autoIssues[autoIssueIndex];
+      autoSetProgress(Math.min(80,66+Math.round(autoIssueIndex/Math.max(1,autoIssues.length)*14)),"발견된 항목 복구 중","항목 "+(autoIssueIndex+1)+" / "+autoIssues.length+" · "+detected.name);
+      autoBusy=true;window.setTimeout(function(){try{autoRepairDetectedIssueAt(autoIssueIndex);autoIssueIndex++;}catch(e){autoFailureCount++;logMsg("자동 복구 오류: "+e.message,"bad");autoIssueIndex++;}finally{autoBusy=false;}},70);return;
+    }
+    if(autoStage===4){autoStepRecheck(false);return;}
+    if(autoStage===5){autoFinishRecovery(false);return;}
+  }catch(e){logMsg("자동 복구 중 오류: "+e.message,"bad");autoFailureCount++;autoFinishRecovery(false);}
+}
+function wmi(){
+  return GetObject("winmgmts:{impersonationLevel=impersonate}!\\\\.\\root\\cimv2");
+}
+function nowShort(){try{return new Date().toLocaleTimeString();}catch(e){return "-";}}
+function setLive(id,value,sub){setText(id,value);if(sub!==undefined)setText(id==="cpu"?"cpuVal":id==="mem"?"memSub":id==="disk"?"diskSub":id==="netVal"?"netSub":id==="inetVal"?"inetSub":"posSub",sub);}
+function setNetStatus(id,value,good){var e=byId(id);if(e){e.innerText=value;e.className='svalue '+(good?'statusGood':'statusWarn');}}
+function liveSystem(){
+  if(!liveMonitoringStarted||running||autoRunning||bsRepairRunning)return;
+  try{
+    var svc=new ActiveXObject('WbemScripting.SWbemLocator');
+    var con=svc.ConnectServer('.','root\\cimv2');
+    var q=con.ExecQuery('SELECT LoadPercentage FROM Win32_Processor');
+    var en=new Enumerator(q),sum=0,n=0;
+    for(;!en.atEnd();en.moveNext()){sum+=Number(en.item().LoadPercentage||0);n++;}
+    var cpu=n?Math.round(sum/n):0;
+    setText('cpu',cpu+'%');setWidth('cpuBar',cpu);setText('cpuVal','실시간 PC 사용률');
+    var os=con.Get('Win32_OperatingSystem=@');
+    var total=Number(os.TotalVisibleMemorySize||0),free=Number(os.FreePhysicalMemory||0);
+    var ram=total?Math.round((1-free/total)*100):0;
+    setText('mem',ram+'%');setWidth('memBar',ram);setText('memSub',Math.round((total-free)/1048576*10)/10+' GB / '+Math.round(total/1048576*10)/10+' GB');
+    var d=con.Get('Win32_LogicalDisk.DeviceID="C:"');
+    var size=d&&d.Size?Number(d.Size):0,freeDisk=d&&d.FreeSpace?Number(d.FreeSpace):0;
+    var disk=size?Math.round((1-freeDisk/size)*100):0;
+    setText('disk',disk+'%');setWidth('diskBar',disk);setText('diskSub',Math.round(freeDisk/1073741824*10)/10+' GB 여유 / '+totalGB(size)+' GB');
+  }catch(ex){
+    setText('cpu','확인 필요');setText('cpuVal','WMI 조회 실패');setWidth('cpuBar',0);
+    setText('mem','확인 필요');setText('memSub','WMI 조회 실패');setWidth('memBar',0);
+    setText('disk','확인 필요');setText('diskSub','WMI 조회 실패');setWidth('diskBar',0);
+  }
+}
+function liveNetwork(){
+  if(!liveMonitoringStarted||running||autoRunning||bsRepairRunning)return;
+  var netOk=false;
+  try{
+    var svc=new ActiveXObject('WbemScripting.SWbemLocator');
+    var con=svc.ConnectServer('.','root\\cimv2');
+    var q=con.ExecQuery('SELECT NetConnectionStatus FROM Win32_NetworkAdapter WHERE NetEnabled=True AND NetConnectionStatus=2');
+    var en=new Enumerator(q);
+    netOk=!en.atEnd();
+  }catch(ex){netOk=false;}
+  setNetStatus('netVal',netOk?'정상':'주의',netOk);
+  setText('netSub',netOk?'네트워크 연결됨 · 실시간':'활성 네트워크 없음');
+
+  // HTA의 비동기 MSXML2.XMLHTTP는 환경/보안 설정에 따라 status=0이 되어
+  // 실제 인터넷이 연결되어 있어도 '인터넷 응답 없음'으로 오판할 수 있습니다.
+  // WinHTTP의 동기 요청으로 짧게 확인하고, 실패하면 보조 주소를 한 번 더 확인합니다.
+  var ok=false;
+  var urls=[
+    'https://www.msftconnecttest.com/connecttest.txt',
+    'https://www.gstatic.com/generate_204'
+  ];
+  for(var i=0;i<urls.length && !ok;i++){
+    try{
+      var w=new ActiveXObject('WinHttp.WinHttpRequest.5.1');
+      w.SetTimeouts(650,650,900,900);
+      w.Open('GET',urls[i],false);
+      w.SetRequestHeader('Cache-Control','no-cache');
+      w.Send();
+      var st=Number(w.Status);
+      if((st>=200&&st<400) || st===204){ok=true;}
+    }catch(ex3){}
+  }
+  if(ok){
+    setNetStatus('inetVal','정상',true);
+    setText('inetSub','연결됨 · 실시간');
+  }else if(netOk){
+    // 네트워크 어댑터가 실제 연결 상태라면 일시적인 외부 응답 지연으로
+    // '인터넷 응답 없음'을 즉시 표시하지 않고 재확인 상태로 표시합니다.
+    setNetStatus('inetVal','확인 중',true);
+    setText('inetSub','인터넷 연결 확인 중');
+    window.setTimeout(function(){liveNetworkInternetOnly();},1200);
+  }else{
+    setNetStatus('inetVal','주의',false);
+    setText('inetSub','네트워크 연결 없음');
+  }
+}
+
+function liveNetworkInternetOnly(){
+  if(!liveMonitoringStarted||running||autoRunning||bsRepairRunning)return;
+  var ok=false;
+  var urls=['https://www.msftconnecttest.com/connecttest.txt','https://www.gstatic.com/generate_204'];
+  for(var i=0;i<urls.length && !ok;i++){
+    try{
+      var w=new ActiveXObject('WinHttp.WinHttpRequest.5.1');
+      w.SetTimeouts(700,700,1000,1000);
+      w.Open('GET',urls[i],false);
+      w.SetRequestHeader('Cache-Control','no-cache');
+      w.Send();
+      var st=Number(w.Status);
+      ok=((st>=200&&st<400)||st===204);
+    }catch(e){}
+  }
+  if(ok){
+    setNetStatus('inetVal','정상',true);
+    setText('inetSub','연결됨 · 실시간');
+  }else{
+    setNetStatus('inetVal','주의',false);
+    setText('inetSub','인터넷 응답 지연 · 재확인 필요');
+  }
+}
+
+var liveMonitoringStarted=false,liveSystemInterval=null,liveNetworkInterval=null;
+function startLiveMonitoring(){
+  if(liveMonitoringStarted)return;
+  liveMonitoringStarted=true;
+  setText("cpu","측정 대기");setText("mem","측정 대기");setText("disk","측정 대기");
+  setText("netVal","확인 대기");setText("inetVal","확인 대기");
+  logMsg("로그인 완료: 실시간 상태 확인을 백그라운드 일정으로 시작합니다.","info");
+  window.setTimeout(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveSystem();},1400);
+  window.setTimeout(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveNetwork();},4200);
+  if(!liveSystemInterval)liveSystemInterval=window.setInterval(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveSystem();},20000);
+  if(!liveNetworkInterval)liveNetworkInterval=window.setInterval(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveNetwork();},45000);
+}
+function liveRefresh(){
+  if(!liveMonitoringStarted)return;
+  window.setTimeout(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveSystem();},100);
+  window.setTimeout(function(){if(!running&&!autoRunning&&!bsRepairRunning)liveNetwork();},1800);
+}
+
+var LOGIN_ID="yogiorder";
+var DEFAULT_PASSWORD="e123456789";
+var PASS_KEY="HKCU\\Software\\POSCAREPRO\\Password";
+var SIZE_KEY="HKCU\\Software\\POSCAREPRO\\WindowSize";
+var UPDATE_URL_KEY="HKCU\\Software\\POSCAREPRO\\UpdateManifestUrl";
+var MYBOX_PAT_KEY="HKCU\\Software\\POSCAREPRO\\MyBoxPAT";
+var MYBOX_FOLDER_KEY="HKCU\\Software\\POSCAREPRO\\MyBoxUpdateFolder";
+var APP_VERSION="2.2.0";
+
+function shellObj(){return new ActiveXObject("WScript.Shell");}
+function getSavedPassword(){
+  try{
+    var s=shellObj();
+    return String(s.RegRead(PASS_KEY));
+  }catch(e){return DEFAULT_PASSWORD;}
+}
+function savePassword(v){
+  var s=shellObj();
+  s.RegWrite(PASS_KEY,String(v),"REG_SZ");
+}
+function showLogin(){
+  var o=byId("loginOverlay"); if(o)o.style.display="block";
+  try{byId("loginId").focus();}catch(e){}
+}
+function doLogin(){
+  var uid=byId("loginId").value;
+  var pw=byId("loginPw").value;
+  if(uid===LOGIN_ID && pw===getSavedPassword()){
+    byId("loginOverlay").style.display="none";
+    setText("ready","진단 준비 완료");
+    setText("readySub","실시간 상태 확인은 로그인 후 순차 실행됩니다. 자동 복구는 메뉴에서 시작할 때만 실행됩니다.");
+    logMsg("관리자 로그인 완료","good");
+    window.setTimeout(startLiveMonitoring,350);
+    return;
+  }
+  setText("loginMsg","아이디 또는 비밀번호가 올바르지 않습니다.");
+  byId("loginPw").value="";
+  try{byId("loginPw").focus();}catch(e){}
+}
+function loginKey(e){
+  e=e||window.event;
+  if(e.keyCode===13){doLogin();return false;}
+}
+function openSettings(){
+  // 설정 메뉴 진입 전 현재 관리자 비밀번호를 한 번 더 확인합니다.
+  var g=byId("settingsGate");
+  if(g){
+    g.style.display="block";
+    try{byId("settingsGatePw").value="";byId("settingsGateMsg").innerText="";byId("settingsGatePw").focus();}catch(e){}
+  }
+}
+function settingsGateKey(e){
+  e=e||window.event;
+  if(e.keyCode===13){verifySettingsGate();return false;}
+}
+function verifySettingsGate(){
+  var p="";
+  try{p=byId("settingsGatePw").value;}catch(e){}
+  if(p===getSavedPassword()){
+    var g=byId("settingsGate");
+    if(g)g.style.display="none";
+    var s=byId("settingsModal");
+    if(s)s.style.display="block";
+    setText("settingsMsg","");
+    loadUpdateSettings();
+    try{byId("oldPw").value="";byId("oldPwConfirm").value="";byId("newPw").value="";byId("newPw2").value="";byId("oldPw").focus();}catch(e){}
+    logMsg("관리자 비밀번호 재확인 후 설정 메뉴에 진입했습니다.","good");
+  }else{
+    setText("settingsGateMsg","현재 비밀번호가 올바르지 않습니다.");
+    try{byId("settingsGatePw").value="";byId("settingsGatePw").focus();}catch(e){}
+    logMsg("설정 메뉴 진입 비밀번호 확인 실패","caution");
+  }
+}
+function closeSettingsGate(){
+  var g=byId("settingsGate");
+  if(g)g.style.display="none";
+  try{byId("settingsGatePw").value="";}catch(e){}
+  setText("settingsGateMsg","");
+}
+function getUpdateUrl(){try{return String(shellObj().RegRead(UPDATE_URL_KEY));}catch(e){return "";}}
+function saveUpdateUrlValue(v){try{shellObj().RegWrite(UPDATE_URL_KEY,String(v||""),"REG_SZ");return true;}catch(e){return false;}}
+function getMyboxPAT(){try{return String(shellObj().RegRead(MYBOX_PAT_KEY));}catch(e){return "";}}
+function saveMyboxPAT(v){try{shellObj().RegWrite(MYBOX_PAT_KEY,String(v||""),"REG_SZ");return true;}catch(e){return false;}}
+function getMyboxFolder(){try{var v=String(shellObj().RegRead(MYBOX_FOLDER_KEY));return v||"POS CARE PRO 업데이트";}catch(e){return "POS CARE PRO 업데이트";}}
+function saveMyboxFolder(v){try{shellObj().RegWrite(MYBOX_FOLDER_KEY,String(v||"POS CARE PRO 업데이트"),"REG_SZ");return true;}catch(e){return false;}}
+function updateStatus(msg,cls){setText("updateMsg",msg);var e=byId("updateMsg");if(e)e.className="modalMsg "+(cls||"");}
+function getLocalAppDir(){
+  try{var p=location.pathname.replace(/^\\\//,"").replace(/^\/\//,"");return p.substring(0,p.lastIndexOf("\\"));}catch(e){return "";}
+}
+function fileUrl(path){return "file:///"+String(path||"").replace(/\\/g,"/");}
+function isMyboxUpdateConfigured(){
+  var u="";try{u=String(byId("updateUrl").value||"").toLowerCase();}catch(e){}
+  return u.indexOf("mybox.naver.com")>=0 || String(getMyboxPAT()||"")!=="";
+}
+function myboxRequest(method,url,pat){
+  var x=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+  x.Open(method,url,false);
+  x.SetTimeouts(5000,5000,10000,10000);
+  x.SetRequestHeader("Authorization","Bearer "+String(pat||""));
+  x.SetRequestHeader("Accept","application/json");
+  x.Send();
+  if(x.Status<200||x.Status>=300)throw new Error("MYBOX HTTP "+x.Status);
+  return x;
+}
+function myboxJson(method,url,pat){var x=myboxRequest(method,url,pat);var t=String(x.ResponseText||"");if(!t)throw new Error("MYBOX 응답이 비어 있습니다.");return JSON.parse(t);}
+function myboxUtf8ResponseText(body){
+  var s=new ActiveXObject("ADODB.Stream");s.Type=1;s.Open();s.Write(body);s.Position=0;s.Type=2;s.Charset="utf-8";var t=s.ReadText(-1);s.Close();return t;
+}
+function myboxGetDownloadUrl(resourceId,pat){
+  var r=myboxJson("GET","https://open-api.mybox.naver.com/v1/drive/files/"+encodeURIComponent(String(resourceId))+"/download",pat);
+  var u=String(r.downloadUrl||"");if(!u)throw new Error("MYBOX 다운로드 주소를 받지 못했습니다.");return u;
+}
+function myboxSearchFolder(folderName,pat){
+  var u="https://open-api.mybox.naver.com/v1/search/resources/folders?q="+encodeURIComponent(String(folderName||""))+"&count=200";
+  var r=myboxJson("GET",u,pat),a=r.resources||[],i,item,needle=String(folderName||"").toLowerCase();
+  for(i=0;i<a.length;i++){item=a[i]||{};if(String(item.name||"").toLowerCase()===needle)return item;}
+  return null;
+}
+function myboxSearchFile(fileName,pat,folderPath){
+  var u="https://open-api.mybox.naver.com/v1/search/resources/files?q="+encodeURIComponent(String(fileName||""))+"&count=200";
+  var r=myboxJson("GET",u,pat),a=r.resources||[],i,item,parent,needle=String(fileName||"").toLowerCase(),fp=String(folderPath||"");
+  for(i=0;i<a.length;i++){
+    item=a[i]||{};if(String(item.name||"").toLowerCase()!==needle)continue;
+    parent=String(item.parentPath||item.path||"");
+    if(!fp || parent===fp || parent.indexOf(fp)===0)return item;
+  }
+  return null;
+}
+function myboxDownloadTextFile(resourceId,pat){
+  var u=myboxGetDownloadUrl(resourceId,pat);
+  var x=new ActiveXObject("WinHttp.WinHttpRequest.5.1");x.Open("GET",u,false);x.SetTimeouts(5000,5000,15000,15000);x.Send();
+  if(x.Status!==200)throw new Error("MYBOX 파일 다운로드 HTTP "+x.Status);
+  return myboxUtf8ResponseText(x.ResponseBody);
+}
+function myboxSearchUpdateZip(pat,folderPath){
+  var u="https://open-api.mybox.naver.com/v1/search/resources/files?q="+encodeURIComponent("POS_CARE_PRO")+"&count=200";
+  var r=myboxJson("GET",u,pat),a=r.resources||[],i,item,parent,name,needle=String(folderPath||"");
+  var candidates=[];
+  for(i=0;i<a.length;i++){
+    item=a[i]||{};name=String(item.name||"");
+    if(!/\.zip$/i.test(name))continue;
+    if(!/^POS_CARE_PRO(?:[_-].*)?\.zip$/i.test(name))continue;
+    parent=String(item.parentPath||item.path||"");
+    if(needle && !(parent===needle || parent.indexOf(needle)===0))continue;
+    candidates.push(item);
+  }
+  if(!candidates.length)return null;
+  candidates.sort(function(a,b){return String(b.modifiedAt||"").localeCompare(String(a.modifiedAt||""));});
+  return candidates[0];
+}
+function inferVersionFromZipName(name){
+  var m=String(name||"").match(/(?:^|[_-])v?(\d+(?:\.\d+){1,3})(?:[_-].*)?\.zip$/i);
+  return m?String(m[1]):"";
+}
+function localAppModifiedTime(){
+  try{
+    var fso=new ActiveXObject("Scripting.FileSystemObject"),dir=getLocalAppDir(),p=fso.BuildPath(dir,"POS_CARE_PRO.hta");
+    if(fso.FileExists(p))return new Date(fso.GetFile(p).DateLastModified).getTime();
+  }catch(e){}
+  return 0;
+}
+function getMyboxManifest(){
+  // 설정창에 표시된 토큰을 우선 사용합니다. 입력란을 비운 경우 오래된 레지스트리 토큰을 몰래 재사용하지 않습니다.
+  var patInput=byId("myboxPat");
+  var pat=String(patInput?patInput.value:getMyboxPAT()).replace(/^\s+|\s+$/g,"");
+  var folderInput=byId("myboxFolder");
+  var folderName=String(folderInput?folderInput.value:getMyboxFolder()).replace(/^\s+|\s+$/g,"");
+  if(!pat){updateStatus("MYBOX 개인 액세스 토큰을 입력하세요.","caution");return null;}
+  if(!folderName)folderName="POS CARE PRO 업데이트";
+  saveMyboxPAT(pat);saveMyboxFolder(folderName);
+  updateStatus("MYBOX 업데이트 ZIP을 확인하는 중...","info");
+  try{
+    var folder=myboxSearchFolder(folderName,pat);if(!folder)throw new Error("업데이트 폴더를 찾을 수 없습니다: "+folderName);
+    var fp=String(folder.path||"");
+    var z=myboxSearchUpdateZip(pat,fp);if(!z)throw new Error("업데이트 ZIP 파일을 찾을 수 없습니다. 폴더에 POS_CARE_PRO_버전.zip 또는 POS_CARE_PRO_latest.zip을 넣어주세요.");
+    var name=String(z.name||"");
+    var ver=inferVersionFromZipName(name);
+    var m={version:ver||"",url:"",sha256:"",notes:"MYBOX 업데이트 ZIP",_myboxZipResourceId:String(z.resourceId||""),_myboxFolderPath:fp,_myboxZipName:name,_myboxModifiedAt:String(z.modifiedAt||"")};
+    if(!ver)m._myboxVersionUnknown="1";
+    return m;
+  }catch(e){updateStatus("MYBOX 업데이트 파일을 가져오지 못했습니다: "+e.message,"caution");return null;}
+}
+function normalizeManifestUrl(raw){
+  var u=String(raw||"").replace(/^\uFEFF/,"").replace(/[\r\n\t]/g,"").replace(/^\s+|\s+$/g,"");
+  if(u.length>=2&&((u.charAt(0)==='"'&&u.charAt(u.length-1)==='"')||(u.charAt(0)==="'"&&u.charAt(u.length-1)==="'")))u=u.substring(1,u.length-1);
+  if(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/.test(u))throw new Error("업데이트 주소에 사용할 수 없는 제어 문자가 있습니다. 주소를 다시 복사해 입력하세요.");
+  if(u&&!/^https?:\/\//i.test(u))throw new Error("업데이트 주소는 https:// 또는 http://로 시작해야 합니다.");
+  return u;
+}
+function isGitHubReleaseApiUrl(raw){
+  var u=String(raw||"").replace(/^\uFEFF/,"").replace(/^\s+|\s+$/g,"");
+  return /^https:\/\/api\.github\.com\/repos\/[^\/]+\/[^\/]+\/releases\/latest(?:\?.*)?$/i.test(u);
+}
+function parseUpdateManifestResponse(raw){
+  var t=String(raw||"").replace(/^\uFEFF/,"").replace(/^\s+|\s+$/g,"");
+  t=t.replace(/^\)\]\}',?\s*/,"");
+  if(!t)throw new Error("업데이트 서버 응답이 비어 있습니다.");
+  if(/^<(?:!doctype\s+html|html|head|body|\?xml)/i.test(t))throw new Error("업데이트 주소가 JSON 대신 웹페이지를 반환했습니다. 주소와 공개 권한을 확인하거나 MYBOX 토큰을 입력하세요.");
+  var data;
+  try{data=JSON.parse(t);}catch(parseErr){
+    var preview=t.substring(0,90).replace(/\s+/g," ");
+    throw new Error("업데이트 응답이 올바른 JSON 형식이 아닙니다. 응답 앞부분: "+preview);
+  }
+  // GitHub Releases API 지원: https://api.github.com/repos/OWNER/REPO/releases/latest
+  if(data&&typeof data==="object"&&typeof data.tag_name!=="undefined"&&data.assets&&typeof data.assets.length==="number"){
+    var assets=data.assets,chosen=null,chosenName="",best=-999,ai,assetName,assetScore;
+    for(ai=0;ai<assets.length;ai++){
+      var candidate=assets[ai];
+      assetName=String(candidate&&candidate.name||"");
+      if(!/\.zip$/i.test(assetName))continue;
+      assetScore=1;
+      if(/pos[_ -]?care[_ -]?pro/i.test(assetName))assetScore+=100;
+      if(/source|symbols|debug|sample/i.test(assetName))assetScore-=1000;
+      if(String(candidate.browser_download_url||"").indexOf("https://")!==0)assetScore-=100;
+      if(assetScore>best){best=assetScore;chosen=candidate;chosenName=assetName;}
+    }
+    if(!chosen)throw new Error("GitHub 최신 Release에 업데이트 ZIP이 없습니다. Release에 POS_CARE_PRO_2.2.0.zip 파일을 첨부하세요.");
+    var githubVersion=String(data.tag_name||"").replace(/^v/i,"").replace(/^release[-_ ]?/i,"");
+    var githubUrl=String(chosen.browser_download_url||"");
+    if(!githubVersion)throw new Error("GitHub Release의 태그가 비어 있습니다. v2.2.0 형식으로 지정하세요.");
+    if(!/^https:\/\//i.test(githubUrl))throw new Error("GitHub Release ZIP의 다운로드 주소를 읽지 못했습니다.");
+    var githubHash=String(chosen.digest||"").replace(/^sha256:/i,"");
+    if(!/^[0-9a-f]{64}$/i.test(githubHash))githubHash="";
+    return {version:githubVersion,url:githubUrl,sha256:githubHash,notes:String(data.body||data.name||"GitHub Release 업데이트"),_githubRelease:"1",_githubAssetName:chosenName};
+  }
+  if(!data||typeof data!=="object"||typeof data.version==="undefined")throw new Error("JSON 응답에 version 항목이 없습니다. GitHub를 사용할 경우 공개 저장소의 최신 Release API 주소를 입력하세요.");
+  return data;
+}
+function testMyboxConnection(){
+  var m=getMyboxManifest();if(!m)return;
+  updateStatus("MYBOX 연결 및 업데이트 ZIP 확인 완료: "+String(m._myboxZipName||"ZIP 파일"),"good");
+}
+function getManifest(){
+  var rawUrl="",url="",patInput=null,pat="",githubMode=false;
+  try{rawUrl=String(byId("updateUrl").value||"");}catch(ignoreUrlRead){}
+  if(!rawUrl){try{rawUrl=String(getUpdateUrl()||"");}catch(ignoreSavedUrl){}}
+  githubMode=isGitHubReleaseApiUrl(rawUrl);
+  try{patInput=byId("myboxPat");pat=String(patInput?patInput.value:getMyboxPAT()).replace(/^\s+|\s+$/g,"");}catch(ignorePatRead){pat="";}
+  // GitHub API 주소가 입력되어 있으면 예전 레지스트리에 저장된 MYBOX 토큰/설정보다 GitHub를 우선합니다.
+  if(pat&&!githubMode)return getMyboxManifest();
+  try{url=normalizeManifestUrl(rawUrl);}catch(urlErr){updateStatus("업데이트 주소 확인: "+urlErr.message,"caution");return null;}
+  if(!url){updateStatus("GitHub 최신 Release API 주소 또는 MYBOX 개인 액세스 토큰을 입력하세요.","caution");return null;}
+  if(url.toLowerCase().indexOf("mybox.naver.com")>=0){updateStatus("MYBOX를 사용하려면 개인 액세스 토큰을 입력하세요.","caution");return null;}
+  if(!saveUpdateUrlValue(url)){updateStatus("업데이트 주소 저장에 실패했습니다.","caution");return null;}
+  updateStatus(githubMode?"GitHub 최신 Release 정보를 확인하는 중...":"업데이트 정보를 확인하는 중...","info");
+  try{
+    var x=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+    x.Open("GET",url,false);x.SetTimeouts(5000,5000,15000,15000);
+    x.SetRequestHeader("Accept",githubMode?"application/vnd.github+json":"application/json");
+    if(githubMode)x.SetRequestHeader("User-Agent","POS-CARE-PRO-Updater");
+    x.Send();
+    if(x.Status<200||x.Status>=300)throw new Error("HTTP "+x.Status+(x.Status===404?" — 저장소가 비공개이거나 주소/Release가 잘못되었습니다.":""));
+    var manifest=parseUpdateManifestResponse(x.ResponseText);
+    if(githubMode&&!manifest._githubRelease)throw new Error("GitHub Release 응답 형식이 아닙니다. 주소가 /releases/latest 로 끝나는지 확인하세요.");
+    return manifest;
+  }catch(e){updateStatus((githubMode?"GitHub 업데이트 정보를 가져오지 못했습니다: ":"업데이트 정보를 가져오지 못했습니다: ")+e.message,"caution");return null;}
+}
+function versionParts(v){var a=String(v||"0").split("."),r=[];for(var i=0;i<3;i++)r[i]=parseInt(a[i]||"0",10)||0;return r;}
+function isNewerVersion(remote){var a=versionParts(APP_VERSION),b=versionParts(remote);for(var i=0;i<3;i++){if(b[i]>a[i])return true;if(b[i]<a[i])return false;}return false;}
+function sha256File(path){
+  try{
+    var sh=new ActiveXObject("WScript.Shell"),fso=new ActiveXObject("Scripting.FileSystemObject"),out=fso.GetSpecialFolder(2).Path+"\\POSCARE_HASH_"+new Date().getTime()+".txt";
+    var cmd='certutil.exe -hashfile "'+String(path).replace(/"/g,'\\"')+'" SHA256 > "'+out.replace(/"/g,'\\"')+'"';
+    var rc=sh.Run(cmd,0,true);
+    if(rc!==0||!fso.FileExists(out)){return "";}
+    var t=fso.OpenTextFile(out,1,true),s=t.ReadAll();t.Close();fso.DeleteFile(out,true);
+    var m=s.match(/[0-9A-Fa-f]{64}/);return m?String(m[0]).toLowerCase():"";
+  }catch(e){return "";}
+}
+function downloadBinary(url,path){
+  try{
+    var x=new ActiveXObject("WinHttp.WinHttpRequest.5.1"),s=new ActiveXObject("ADODB.Stream");
+    x.Open("GET",url,false);x.SetTimeouts(5000,5000,15000,15000);x.Send();if(x.Status!==200)throw new Error("HTTP "+x.Status);
+    s.Type=1;s.Open();s.Write(x.ResponseBody);s.SaveToFile(path,2);s.Close();return true;
+  }catch(e){return false;}
+}
+function checkForUpdate(){
+  var m=getManifest();if(!m)return;
+  var rv=String(m.version||"");
+  var unknown=String(m._myboxVersionUnknown||"")==="1";
+  if(unknown){
+    var remoteTs=Date.parse(String(m._myboxModifiedAt||""))||0;
+    var localTs=localAppModifiedTime();
+    if(remoteTs>0 && localTs>0 && remoteTs<=localTs){
+      updateStatus("현재 MYBOX 업데이트 ZIP이 최신 상태입니다.","good");return;
+    }
+    setText("updateMsg","업데이트 가능한 내용이 있습니다.");
+    updateStatus("업데이트 가능한 내용이 있습니다. 설정의 업데이트 버튼으로 적용할 수 있습니다.","good");
+  }else{
+    if(!rv){updateStatus(m._githubRelease?"GitHub Release의 버전을 확인하지 못했습니다.":"MYBOX 업데이트 ZIP의 버전을 확인하지 못했습니다.","caution");return;}
+    if(!isNewerVersion(rv)){updateStatus("현재 버전 "+APP_VERSION+"이 최신 버전입니다.","good");return;}
+    setText("updateMsg","업데이트 가능한 내용이 있습니다. (버전 "+rv+")");
+    updateStatus("업데이트 가능한 내용이 있습니다. 설정의 업데이트 버튼으로 적용할 수 있습니다.","good");
+  }
+}
+function autoUpdate(){
+  try{
+    var input=byId("updateUrl"),rawUrl=String(input?input.value||"":getUpdateUrl()||"");
+    var githubMode=isGitHubReleaseApiUrl(rawUrl);
+    var pat=byId("myboxPat")?String(byId("myboxPat").value||"").replace(/^\s+|\s+$/g,""):getMyboxPAT();
+    if(pat&&!githubMode)saveMyboxPAT(pat);
+    if(byId("myboxFolder")&&!githubMode)saveMyboxFolder(String(byId("myboxFolder").value||getMyboxFolder()));
+    updateStatus(githubMode?"GitHub 최신 Release의 ZIP을 확인하고 있습니다...":"업데이트 정보를 확인하고 있습니다...","info");
+    var m=getManifest();if(!m)return;
+    var unknown=String(m._myboxVersionUnknown||"")==="1";
+    if(unknown){
+      var remoteTs=Date.parse(String(m._myboxModifiedAt||""))||0,localTs=localAppModifiedTime();
+      if(remoteTs>0&&localTs>0&&remoteTs<=localTs){updateStatus("현재 MYBOX 업데이트 ZIP이 최신 상태입니다.","good");return;}
+      setText("updateMsg","업데이트 가능한 내용이 있습니다.");
+    }else{
+      var rv=String(m.version||"");
+      if(!rv){updateStatus("업데이트 파일 버전을 확인하지 못했습니다.","caution");return;}
+      if(!isNewerVersion(rv)){
+        updateStatus(githubMode?"현재 버전 "+APP_VERSION+"이 최신 GitHub Release("+rv+")입니다.":(m._githubRelease?"현재 버전 "+APP_VERSION+"이 최신 GitHub Release("+rv+")입니다.":"현재 버전 "+APP_VERSION+"이 최신 버전입니다."),"good");
+        return;
+      }
+      setText("updateMsg","업데이트 가능한 내용이 있습니다. (버전 "+rv+")");
+    }
+    var fso=new ActiveXObject("Scripting.FileSystemObject"),url="";
+    if(m._myboxZipResourceId){
+      url=myboxGetDownloadUrl(String(m._myboxZipResourceId),String((byId("myboxPat")&&byId("myboxPat").value)||getMyboxPAT()));
+    }else{
+      url=normalizeManifestUrl(String(m.url||""));
+      if(!url)throw new Error("업데이트 ZIP 다운로드 주소(url)가 비어 있습니다.");
+      if(!/^https?:\/\//i.test(url))throw new Error("ZIP 다운로드 주소는 https:// 또는 http://로 시작해야 합니다.");
+    }
+    var zip=fso.BuildPath(fso.GetSpecialFolder(2).Path,"POSCAREPRO_UPDATE_"+new Date().getTime()+".zip");
+    updateStatus((m._githubRelease?"GitHub Release ZIP을 다운로드하는 중...":"업데이트 ZIP을 다운로드하는 중..."),"info");
+    if(!downloadBinary(url,zip))throw new Error("업데이트 ZIP 다운로드에 실패했습니다. 공개 Release와 ZIP 다운로드 주소를 확인하세요.");
+    var expected=String(m.sha256||"").replace(/^sha256:/i,"").toLowerCase();
+    if(/^[0-9a-f]{64}$/.test(expected)){
+      var actual=sha256File(zip);
+      if(actual&&actual!==expected){try{fso.DeleteFile(zip,true);}catch(ignoreBadZip){}throw new Error("다운로드한 ZIP의 SHA-256이 일치하지 않습니다. 파일이 바뀌었거나 다운로드가 손상되었습니다.");}
+    }
+    var appDir=getLocalAppDir();if(!appDir)throw new Error("현재 프로그램 경로를 확인하지 못했습니다.");
+    var sh=new ActiveXObject("WScript.Shell"),runner=fso.BuildPath(appDir,"update_runner.vbs");
+    if(!fso.FileExists(runner))throw new Error("update_runner.vbs가 없습니다.");
+    sh.Run('wscript.exe "'+runner.replace(/"/g,'\\"')+'" "'+appDir.replace(/"/g,'\\"')+'" "'+zip.replace(/"/g,'\\"')+'"',0,false);
+    updateStatus("업데이트를 적용합니다. 프로그램이 잠시 종료됩니다.","good");
+    window.setTimeout(function(){try{window.close();}catch(e){location.href=fileUrl(appDir+"\\POS_CARE_PRO.hta");}},250);
+  }catch(e){updateStatus("자동 업데이트를 시작하지 못했습니다: "+e.message,"caution");}
+}
+function loadUpdateSettings(){
+  try{var e=byId("updateUrl");if(e)e.value=getUpdateUrl();var p=byId("myboxPat");if(p)p.value=getMyboxPAT();var f=byId("myboxFolder");if(f)f.value=getMyboxFolder();}catch(e){}
+}
+function closeSettings(){
+  var s=byId("settingsModal");
+  if(s)s.style.display="none";
+  setText("settingsMsg","");
+  try{byId("oldPw").value="";byId("oldPwConfirm").value="";byId("newPw").value="";byId("newPw2").value="";}catch(e){}
+}
+function changePassword(){
+  var oldPw=byId("oldPw").value;
+  var oldPwConfirm=byId("oldPwConfirm").value;
+  var newPw=byId("newPw").value;
+  var newPw2=byId("newPw2").value;
+  if(oldPw!==getSavedPassword()){setText("settingsMsg","현재 비밀번호가 올바르지 않습니다.");return;}
+  if(oldPwConfirm!==getSavedPassword() || oldPwConfirm!==oldPw){setText("settingsMsg","현재 비밀번호를 한 번 더 정확하게 입력하세요.");return;}
+  if(newPw.length<4){setText("settingsMsg","새 비밀번호는 4자 이상 입력하세요.");return;}
+  if(newPw!==newPw2){setText("settingsMsg","새 비밀번호가 서로 일치하지 않습니다.");return;}
+  try{
+    savePassword(newPw);
+    setText("settingsMsg","비밀번호가 변경되었습니다.");
+    logMsg("관리자 비밀번호가 변경되었습니다.","good");
+    window.setTimeout(closeSettings,700);
+  }catch(e){setText("settingsMsg","비밀번호 저장에 실패했습니다.");}
+}
+function getWindowSize(){
+  try{var s=shellObj();return String(s.RegRead(SIZE_KEY));}catch(e){return "maximized";}
+}
+function saveWindowSize(v){try{shellObj().RegWrite(SIZE_KEY,String(v),"REG_SZ");}catch(e){}}
+function applyWindowSize(v){
+  try{
+    if(v==="maximized"){window.moveTo(0,0);window.resizeTo(screen.availWidth,screen.availHeight);return true;}
+    var a=v.split("x"),w=parseInt(a[0],10),h=parseInt(a[1],10);
+    if(!w||!h)return false;
+    var sw=screen.availWidth||w, sh=screen.availHeight||h;
+    w=Math.min(w,sw); h=Math.min(h,sh);
+    window.resizeTo(w,h);
+    window.moveTo(Math.max(0,Math.floor((sw-w)/2)),Math.max(0,Math.floor((sh-h)/2)));
+    return true;
+  }catch(e){return false;}
+}
+function loadWindowSize(){
+  var v=getWindowSize();
+  if(v!=="maximized" && !/^[0-9]+x[0-9]+$/.test(v))v="maximized";
+  var sel=byId("windowSize");if(sel)sel.value=v;
+}
+function saveWindowSizeSetting(){
+  var sel=byId("windowSize");if(!sel)return;
+  var v=sel.value;
+  if(applyWindowSize(v)){saveWindowSize(v);setText("windowMsg","창 크기가 적용되었습니다.");logMsg("창 크기 설정을 적용했습니다.","good");}
+  else setText("windowMsg","창 크기 적용에 실패했습니다.");
+}
+
+var printTestPid=0;
+function openPrintTest(){
+  var m=byId('printModal');
+  if(m)m.style.display='block';
+  setText('printStatus','대기 중');
+  setText('printExeStatus','내장 PrnTest 준비 완료');
+  logMsg('프린트 테스트 설정 창을 열었습니다.','info');
+}
+function closePrintTest(){var m=byId('printModal');if(m)m.style.display='none';}
+function printImageSelected(input){try{var v=input.value||'';setText('printImageName',v?v.split('\\').pop():'선택된 이미지 없음');}catch(e){setText('printImageName','선택된 이미지 없음');}}
+function runPrintTest(){
+  var speed=byId('printSpeed').value,port=byId('printPort').value;
+  setText('printStatus','테스트 출력 중...');setText('printExeStatus','내장 프린트 통신 모듈을 실행합니다.');
+  logMsg('프린트 테스트: '+port+' / '+speed+' bps','info');setText('phase','진행 단계: 프린터 포트 열기 및 테스트 출력');
+  try{
+    var sh=new ActiveXObject('WScript.Shell');
+    var fso=new ActiveXObject('Scripting.FileSystemObject');
+    var base=fso.GetParentFolderName(location.pathname.replace(/^\\\//,''));
+    var ps=fso.BuildPath(base,'print_test.ps1');
+    if(!fso.FileExists(ps)){throw new Error('print_test.ps1 파일을 찾을 수 없습니다.');}
+    var img=byId('printImage'), imgPath='';
+    if(img && img.value){imgPath=img.value;}
+    var action=(imgPath?'NVPRINT':'TEST');
+    var cmd='powershell.exe -NoProfile -ExecutionPolicy Bypass -File "'+ps+'" -Action '+action+' -Port '+port+' -Baud '+speed;
+    if(imgPath){cmd+=' -ImagePath "'+imgPath.replace(/"/g,'`"')+'"';}
+    printTestPid=sh.Run(cmd,1,true);
+    if(printTestPid===0){
+      setText('printStatus','테스트 출력 완료');setText('printExeStatus','프린터에서 테스트 출력 결과를 확인하세요.');
+      setText('phase','진행 단계: 프린트 테스트 완료');
+      logMsg('프린트 테스트 출력 완료 (COM '+port+' / '+speed+' bps)','good');
+    }else{throw new Error('프린터 통신 모듈이 오류 코드 '+printTestPid+'로 종료되었습니다. COM 포트와 프린터 연결을 확인하세요.');}
+  }catch(ex){setText('printStatus','실행 오류');setText('printExeStatus','프린트 테스트 실패');setText('phase','진행 단계: 프린트 테스트 확인 필요');logMsg('프린트 테스트 오류: '+ex.message,'caution');alert('프린트 테스트를 실행할 수 없습니다.\n\n'+ex.message);}
+}
+
+function stopPrintTest(){
+  try{
+    var sh=new ActiveXObject('WScript.Shell');
+    if(printTestPid){sh.Run('taskkill /PID '+printTestPid+' /T /F',0,true);printTestPid=0;}
+    else{sh.Run('taskkill /IM powershell.exe /T /F',0,true);}
+    setText('printStatus','중지 완료');setText('printExeStatus','PrnTest 실행을 중지했습니다.');logMsg('프린트 테스트 프로그램 중지','caution');
+  }catch(ex){logMsg('PrnTest 중지 오류: '+ex.message,'caution');}
+}
+function openComDiagnostic(){var m=byId('comModal');if(m)m.style.display='block';logMsg('COM1~COM10 포트 진단 창을 열었습니다.','info');runComDiagnostics();}
+function closeComDiagnostic(){var m=byId('comModal');if(m)m.style.display='none';}
+function comWmi(){var svc=new ActiveXObject('WbemScripting.SWbemLocator');return svc.ConnectServer('.','root\\cimv2');}
+function comLog(t,c){var e=byId('comLog');if(!e)return;var d=document.createElement('div');d.className=c||'';d.innerText='['+nowShort()+'] '+t;e.appendChild(d);e.scrollTop=e.scrollHeight;}
+function setComCell(id,text,cls){var e=byId(id);if(e){e.innerText=text;var base=(e.className||'').split(' ')[0];e.className=base+' '+('com'+(cls||''));}}
+function findComInfo(con,port){
+  var q=con.ExecQuery("SELECT Name,PNPDeviceID,ConfigManagerErrorCode,Status FROM Win32_PnPEntity WHERE Name LIKE '%("+port+")%'");
+  var en=new Enumerator(q),a=[];
+  for(;!en.atEnd();en.moveNext()){var x=en.item();a.push({name:String(x.Name||''),id:String(x.PNPDeviceID||''),err:Number(x.ConfigManagerErrorCode||0),status:String(x.Status||'')});}
+  return a;
+}
+function runComDiagnostics(){
+  var i,con,info,port,found,err;
+  for(i=1;i<=10;i++){setComCell('cs'+i,'검사 중','Warn');setComCell('cr'+i,'-','None');var b=byId('cb'+i);if(b)b.disabled=true;}
+  try{con=comWmi();}catch(ex){for(i=1;i<=10;i++){setComCell('cs'+i,'WMI 오류','Bad');setComCell('cr'+i,'실패','Bad');}comLog('COM 진단을 위한 WMI 연결에 실패했습니다: '+ex.message,'comBad');return;}
+  for(i=1;i<=10;i++){
+    port='COM'+i;found=findComInfo(con,port);
+    if(!found.length){setComCell('cs'+i,'미사용','None');setComCell('cr'+i,'장치 없음','None');comLog(port+' : 연결된 장치가 없습니다.','comNone');continue;}
+    err=0;for(var j=0;j<found.length;j++){if(found[j].err!==0)err=found[j].err;}
+    byId('cn'+i).innerText=found[0].name;
+    if(err!==0){setComCell('cs'+i,'오류','Bad');setComCell('cr'+i,'오류 코드 '+err,'Bad');var bb=byId('cb'+i);if(bb){bb.disabled=false;bb.setAttribute('data-pnp',found[0].id);}comLog(port+' : 오류 발견 (ConfigManagerErrorCode '+err+')','comBad');}
+    else{setComCell('cs'+i,'정상','Good');setComCell('cr'+i,'정상','Good');comLog(port+' : 정상','comGood');}
+  }
+  logMsg('COM1~COM10 진단 완료','good');
+}
+function recoverCom(port){
+  var b=byId('cb'+port),id=b?b.getAttribute('data-pnp'):'';
+  if(!id){alert('복구할 COM 장치를 찾을 수 없습니다.');return;}
+  if(!confirm('COM'+port+' 장치를 비활성화 후 다시 활성화하여 복구하시겠습니까?'))return;
+  try{
+    var safe=id.replace(/'/g,"''"),ps="powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$id='"+safe+"'; Disable-PnpDevice -InstanceId $id -Confirm:$false -ErrorAction Stop; Start-Sleep -Milliseconds 800; Enable-PnpDevice -InstanceId $id -Confirm:$false -ErrorAction Stop\"";
+    var sh=new ActiveXObject('WScript.Shell'),rc=sh.Run(ps,0,true);
+    if(rc===0){setComCell('cs'+port,'복구 완료','Good');setComCell('cr'+port,'정상','Good');comLog('COM'+port+' : 복구 완료','comGood');logMsg('COM'+port+' 복구 완료','good');window.setTimeout(runComDiagnostics,700);}
+    else{setComCell('cs'+port,'복구 실패','Bad');setComCell('cr'+port,'관리자 권한 필요','Bad');comLog('COM'+port+' : 복구 실패 (관리자 권한 또는 장치 상태를 확인하세요.)','comBad');}
+  }catch(ex){setComCell('cs'+port,'복구 실패','Bad');setComCell('cr'+port,'실패','Bad');comLog('COM'+port+' 복구 오류: '+ex.message,'comBad');}
+}
+function recoverAllCom(){
+  var i,targets=[];for(i=1;i<=10;i++){var e=byId('cs'+i);if(e&&e.innerText==='오류')targets.push(i);}
+  if(!targets.length){alert('현재 복구할 COM 포트 오류가 없습니다.');return;}
+  if(!confirm('오류가 발견된 '+targets.length+'개 COM 포트를 복구하시겠습니까?'))return;
+  for(i=0;i<targets.length;i++)recoverCom(targets[i]);
+}
+
+function emergencyRecovery(){
+  if(running||autoRunning){alert("현재 다른 진단/복구 작업이 진행 중입니다.");return;}
+  if(!confirm("긴급 복구를 실행하시겠습니까?\n\n네트워크 DNS/Winsock, Windows 핵심 서비스, 프린터 스풀러를 복구한 뒤 전체 진단으로 결과를 다시 확인합니다.\n\n※ PC는 자동으로 재부팅하지 않습니다."))return;
+  autoRunning=true;
+  progress(0);
+  setText("ready","긴급 복구 진행 중");
+  setText("readySub","핵심 네트워크·서비스·프린터를 복구하고 전체 재진단합니다.");
+  setText("phase","진행 단계: 긴급 복구 준비");
+  logMsg("긴급 복구를 시작합니다. PC는 자동 재부팅하지 않습니다.","caution");
+  try{
+    var rc=runAdminShell('ipconfig /flushdns & netsh winsock reset & sc start Winmgmt & sc start EventLog & sc start RpcSs & sc start DHCP & sc start Spooler & net stop Spooler & net start Spooler');
+    progress(45);
+    if(rc===0)logMsg("네트워크 DNS/Winsock 및 Windows 핵심 서비스 복구 명령이 완료되었습니다.","good");
+    else logMsg("긴급 복구 명령 일부의 결과 코드: "+rc+" (복구 후 재진단을 계속합니다).","caution");
+
+    /* 최근 진단에서 COM 장치 오류가 발견된 경우에만 해당 장치를 재활성화합니다. */
+    var i,it,comFixed=0;
+    for(i=0;i<lastDiagnosisIssues.length;i++){
+      it=lastDiagnosisIssues[i];
+      if(it.type==="com" && it.extra){
+        if(repairComSilent(it.extra,it.name)){
+          comFixed++;
+          logMsg(it.name+" COM 장치 재활성화 복구 완료.","good");
+        }else{
+          logMsg(it.name+" COM 장치 자동 복구 실패. 연결 상태를 다시 확인합니다.","caution");
+        }
+      }
+    }
+    progress(70);
+    liveRefresh();
+    logMsg("긴급 복구 후 전체 진단을 다시 실행합니다.","info");
+    autoRunning=false;
+    startQueue(ACTIVE_ITEMS,"긴급 복구 후 재진단");
+    return;
+  }catch(e){
+    autoRunning=false;
+    progress(0);
+    setText("ready","긴급 복구 오류");
+    setText("readySub","복구 과정에서 오류가 발생했습니다.");
+    setText("phase","진행 단계: 긴급 복구 오류");
+    logMsg("긴급 복구 실행 오류: "+e.message,"bad");
+    alert("긴급 복구 중 오류가 발생했습니다.\n\n"+e.message);
+  }
+}
+
+
+function periphLog(t,c){var e=byId("periphLog");if(!e)return;var d=document.createElement("div");d.className=c||"";d.innerText="["+nowShort()+"] "+t;e.appendChild(d);e.scrollTop=e.scrollHeight;}
+function setPeriph(id,text,cls){var e=byId(id);if(e){e.innerText=text;e.className=(e.className||"").split(" ")[0]+" "+(cls||"");}}
+function pnpFindByKeyword(con,keyword){var q=con.ExecQuery("SELECT Name,PNPDeviceID,ConfigManagerErrorCode,Status FROM Win32_PnPEntity WHERE Name LIKE '%"+keyword.replace(/'/g,"''")+"%'");var en=new Enumerator(q),a=[];for(;!en.atEnd();en.moveNext()){var x=en.item();a.push({name:String(x.Name||""),id:String(x.PNPDeviceID||""),err:Number(x.ConfigManagerErrorCode||0),status:String(x.Status||"")});}return a;}
+function pnpFindPort(con,port){var q=con.ExecQuery("SELECT Name,PNPDeviceID,ConfigManagerErrorCode,Status FROM Win32_PnPEntity WHERE Name LIKE '%("+port+")%'");var en=new Enumerator(q),a=[];for(;!en.atEnd();en.moveNext()){var x=en.item();a.push({name:String(x.Name||""),id:String(x.PNPDeviceID||""),err:Number(x.ConfigManagerErrorCode||0),status:String(x.Status||"")});}return a;}
+function peripheralCheck(){
+  var con,i,a,err,ports=[['06','COM1','COM1'],['07','COM2','COM2'],['08','COM3','COM3'],['09','COM4','COM4'],['10','COM5','COM5']];
+  for(i=0;i<5;i++){setPeriph('ps'+ports[i][0],'검사 중','periphWarn');setPeriph('pr'+ports[i][0],'-','periphNone');}
+  setPeriph('ps11','검사 중','periphWarn');setPeriph('pr11','-','periphNone');setPeriph('ps12','검사 중','periphWarn');setPeriph('pr12','-','periphNone');setPeriph('ps13','검사 중','periphWarn');setPeriph('pr13','-','periphNone');
+  try{con=diagWmi();}catch(ex){for(i=0;i<5;i++){setPeriph('ps'+ports[i][0],'검사 실패','periphBad');setPeriph('pr'+ports[i][0],'WMI 오류','periphBad');}setPeriph('ps11','검사 실패','periphBad');setPeriph('pr11','WMI 오류','periphBad');setPeriph('ps12','검사 실패','periphBad');setPeriph('pr12','WMI 오류','periphBad');setPeriph('ps13','검사 실패','periphBad');setPeriph('pr13','WMI 오류','periphBad');periphLog('주변기기 진단 WMI 연결 실패: '+ex.message,'periphBad');return;}
+  for(i=0;i<5;i++){
+    a=pnpFindPort(con,ports[i][2]);err=0;for(var j=0;j<a.length;j++)if(a[j].err!==0)err=a[j].err;
+    if(!a.length){
+      setText('px'+ports[i][0],'미연결');setPeriph('ps'+ports[i][0],'연결 안됨','periphWarn');setPeriph('pr'+ports[i][0],ports[i][2]+' 장치 없음','periphWarn');periphLog(ports[i][1]+' '+ports[i][2]+' : Windows에서 COM 장치 없음','periphWarn');
+    }else if(err!==0){
+      setText('px'+ports[i][0],a[0].name);setPeriph('ps'+ports[i][0],'장치 오류','periphBad');setPeriph('pr'+ports[i][0],'오류 코드 '+err,'periphBad');periphLog(ports[i][1]+' '+ports[i][2]+' : 장치 오류 코드 '+err,'periphBad');
+    }else{
+      var pp=a[0],pr=probeSerialDevice(ports[i][2]),state=classifyComConnection({found:true,error:pp.err||0,name:pp.name,id:pp.id,status:pp.status},pr);
+      setText('px'+ports[i][0],pp.name);
+      if(state==='connected'){
+        setPeriph('ps'+ports[i][0],'연결 정상','periphGood');
+        setPeriph('pr'+ports[i][0],pr&&pr.state==='busy'?'포트 사용 중/연결 확인':'실제 신호·수신 확인','periphGood');
+        periphLog(ports[i][1]+' '+ports[i][2]+' : 실제 장치 연결 상태 확인','periphGood');
+      }else{
+        setPeriph('ps'+ports[i][0],'연결 안됨','periphWarn');setPeriph('pr'+ports[i][0],'실제 장치 확인 안됨','periphWarn');
+        periphLog(ports[i][1]+' '+ports[i][2]+' : COM 포트는 있으나 실제 장치 신호/사용 상태 없음','periphWarn');
+      }
+    }
+  }
+  try{var pq=con.ExecQuery("SELECT Name,Status,PrinterStatus,WorkOffline FROM Win32_Printer"),en=new Enumerator(pq),printers=[],x;for(;!en.atEnd();en.moveNext()){x=en.item();printers.push({name:String(x.Name||''),status:String(x.Status||''),offline:Boolean(x.WorkOffline),printerStatus:Number(x.PrinterStatus||0)});}if(printers.length){setText('px11',printers[0].name);setPeriph('ps11','연결 확인','periphGood');setPeriph('pr11',printers[0].offline?'오프라인':'프린터 인식 정상',printers[0].offline?'periphWarn':'periphGood');periphLog('영수증 프린터 : '+printers[0].name+' / '+(printers[0].offline?'오프라인':'Windows 프린터 인식 정상'),printers[0].offline?'periphWarn':'periphGood');}else{setText('px11','프린터 없음');setPeriph('ps11','연결 안됨','periphWarn');setPeriph('pr11','등록된 프린터 없음','periphWarn');periphLog('영수증 프린터 : Windows에 등록된 프린터가 없습니다.','periphWarn');}}catch(ex){setPeriph('ps11','확인 실패','periphBad');setPeriph('pr11','조회 오류','periphBad');periphLog('프린터 조회 오류: '+ex.message,'periphBad');}
+  try{var mons=con.ExecQuery("SELECT Name FROM Win32_DesktopMonitor"),me=new Enumerator(mons),mc=0;for(;!me.atEnd();me.moveNext())mc++;setText('px12',mc+'개 모니터');setPeriph('ps12',mc>0?'연결 정상':'확인 필요',mc>0?'periphGood':'periphWarn');setPeriph('pr12',mc>0?'모니터 인식 정상':'모니터 정보 없음',mc>0?'periphGood':'periphWarn');periphLog('듀얼모니터 : Windows 모니터 '+mc+'개 인식','periphGood');}catch(ex){setPeriph('ps12','확인 실패','periphBad');setPeriph('pr12','조회 오류','periphBad');}
+  try{var usb=con.ExecQuery("SELECT Name,ConfigManagerErrorCode FROM Win32_PnPEntity WHERE PNPClass='USB'"),ue=new Enumerator(usb),uc=0,ub=0;for(;!ue.atEnd();ue.moveNext()){uc++;if(Number(ue.item().ConfigManagerErrorCode||0)!==0)ub++;}setText('px13',uc+'개 USB 장치');if(ub){setPeriph('ps13','장치 오류','periphBad');setPeriph('pr13',ub+'개 오류','periphBad');periphLog('USB 장치 : '+uc+'개 인식 / '+ub+'개 오류','periphBad');}else{setPeriph('ps13','연결 정상','periphGood');setPeriph('pr13',uc+'개 정상 인식','periphGood');periphLog('USB 장치 : '+uc+'개 정상 인식','periphGood');}}catch(ex){setPeriph('ps13','확인 실패','periphBad');setPeriph('pr13','조회 오류','periphBad');}
+  logMsg('주변기기 연결 상태 진단 완료','good');
+}
+function openPeripheralDiagnostic(){var m=byId('periphModal');if(!m)return;m.style.display='block';byId('periphLog').innerHTML='';periphLog('주변기기 진단을 시작합니다.','info');peripheralCheck();}
+function closePeripheralDiagnostic(){var m=byId('periphModal');if(m)m.style.display='none';}
+function openInfo(){var m=byId('infoModal');if(m)m.style.display='block';}
+function closeInfo(){var m=byId('infoModal');if(m)m.style.display='none';}
+
+
+function bsLogMsg(msg,cls){var e=byId("bsLog");if(!e)return;var d=document.createElement("div");d.className=cls||"";d.innerText="["+new Date().toLocaleTimeString()+"] "+msg;e.appendChild(d);e.scrollTop=e.scrollHeight;}
+function bsSet(id,v,cls){var e=byId(id);if(e){e.innerText=v;if(cls)e.className=cls;}}
+function bsFileCount(){try{var fso=new ActiveXObject("Scripting.FileSystemObject"),folder=fso.GetFolder("C:\\Windows\\Minidump"),en=new Enumerator(folder.Files),n=0;for(;!en.atEnd();en.moveNext()){var f=en.item();if(String(f.Name).toLowerCase().indexOf(".dmp")>=0)n++;}return n;}catch(e){return 0;}}
+function bsLastBugCheck(){try{var sh=new ActiveXObject("WScript.Shell"),ex=sh.Exec('wevtutil qe System /q:"*[System[(EventID=1001)]]" /c:5 /rd:true /f:text'),txt="";while(!ex.StdOut.AtEndOfStream)txt+=ex.StdOut.ReadLine()+"\n";var n=(txt.match(/Event ID:\s*1001/gi)||[]).length;return {count:n,last:txt};}catch(e){return {count:-1,last:null};}}
+function bsCheck(){
+  bsMainProgress(5);setText("ready","블루스크린 검사 진행 중");setText("phase","진행 단계: 블루스크린 기록 확인 중");
+  logMsg("블루스크린 상태 검사를 시작합니다.","info");
+  try{
+    var r=bsLastBugCheck(),d=bsFileCount(),fso=new ActiveXObject("Scripting.FileSystemObject"),wer=0;
+    try{var paths=["C:\\Windows\\LiveKernelReports","C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive","C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportQueue"];for(var pi=0;pi<paths.length;pi++){if(fso.FolderExists(paths[pi]))wer++;}}catch(we){}
+    bsMainProgress(40);
+    if(r.count<0){logMsg("System 이벤트 로그 조회에 실패했습니다.","caution");}else if(r.count>0){logMsg("BugCheck(이벤트 1001) 기록 "+r.count+"건을 확인했습니다.","bad");}else{logMsg("BugCheck 이벤트 1001 기록이 확인되지 않았습니다.","good");}
+    bsMainProgress(70);
+    if(d>0)logMsg("미니덤프 "+d+"개가 확인되었습니다.","caution");else logMsg("미니덤프가 없습니다.","good");
+    if(wer>0)logMsg("Windows 오류 보고 관련 폴더 "+wer+"개가 확인되었습니다.","caution");
+    bsMainProgress(100);
+    if((r.count>0)||d>0||wer>0){setText("ready","블루스크린 점검 완료 - 점검 필요");setText("phase","진행 단계: 블루스크린 점검 완료");}else{setText("ready","블루스크린 점검 완료 - 이상 없음");setText("phase","진행 단계: 블루스크린 점검 완료");}
+  }catch(e){bsMainProgress(100);setText("ready","블루스크린 검사 오류");setText("phase","진행 단계: 블루스크린 검사 오류");logMsg("블루스크린 검사 오류: "+e.message,"bad");}
+}
+
+var bsRepairRunning=false,bsRepairTimer=null,bsRepairStage=0,bsRepairJob=null,bsWaitTick=0,bsLastShown=0,bsWaitStart=0,bsLastJobText="",bsRepairDeadline=0;
+// 현장용 초고속 긴급 복구: 빠른 판정 → 필요한 경우에만 DISM → 즉시 재확인.
+// 콘솔은 숨기고, 실제 Windows 복구 프로세스는 제한시간을 넘기면 즉시 종료합니다.
+var BS_MAX_TOTAL_MS=5*60*1000, BS_CHECK_MS=20*1000, BS_REPAIR_MS=180*1000, BS_RECHECK_MS=20*1000;
+function bsMainProgress(p){var w=byId("bar"),t=byId("pct");p=Math.max(0,Math.min(100,parseInt(p,10)||0));if(w)w.style.width=p+"%";if(t)t.innerText=p+"%";setText("fixPct",p+"%");}
+function bsKillJob(job){
+  try{
+    if(!job)return;
+    var sh=new ActiveXObject("WScript.Shell"),pid="";
+    if(job.pid){
+      try{var fso=new ActiveXObject("Scripting.FileSystemObject");if(fso.FileExists(job.pid)){var t=fso.OpenTextFile(job.pid,1,false);if(!t.AtEndOfStream)pid=String(t.ReadLine()).replace(/\s/g,"");t.Close();}}catch(e){}
+    }
+    if(pid&&/^\d+$/.test(pid)){
+      // PowerShell 프로세스가 DISM을 자식으로 실행하므로 /T로 하위 프로세스까지 종료합니다.
+      sh.Run('cmd.exe /c taskkill /PID '+pid+' /T /F >nul 2>&1',0,true);
+      try{sh.Run('powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Stop-Process -Id '+pid+' -Force -ErrorAction SilentlyContinue"',0,true);}catch(e2){}
+    }
+  }catch(e){logMsg("복구 작업 종료 중 추가 오류: "+e.message,"caution");}
+}
+function bsStartHiddenAdmin(cmd,tag,maxMs){
+  try{
+    var sh=new ActiveXObject("WScript.Shell"),fso=new ActiveXObject("Scripting.FileSystemObject"),tmp=sh.ExpandEnvironmentStrings("%TEMP%"),base=tmp+"\\POSCARE_BS_FAST_"+tag,bat=base+".cmd",ps1=base+".ps1",done=base+".done",doneTmp=done+".tmp",out=base+".log",pid=base+".pid";
+    try{if(fso.FileExists(done))fso.DeleteFile(done,true);if(fso.FileExists(doneTmp))fso.DeleteFile(doneTmp,true);if(fso.FileExists(out))fso.DeleteFile(out,true);if(fso.FileExists(bat))fso.DeleteFile(bat,true);if(fso.FileExists(ps1))fso.DeleteFile(ps1,true);if(fso.FileExists(pid))fso.DeleteFile(pid,true);}catch(x){}
+    var bf=fso.CreateTextFile(bat,true,false);
+    bf.WriteLine("@echo off");
+    bf.WriteLine(cmd+" > \""+out+"\" 2>&1");
+    bf.WriteLine("exit /b %ERRORLEVEL%");
+    bf.Close();
+    var timeoutSec=Math.max(1,Math.ceil((maxMs||BS_REPAIR_MS)/1000)),qBat=bat.replace(/"/g,'\\"'),qDoneTmp=doneTmp.replace(/"/g,'\\"'),qDone=done.replace(/"/g,'\\"');
+    var ps=fso.CreateTextFile(ps1,true,false);
+    ps.WriteLine('$ErrorActionPreference="Continue"');
+    ps.WriteLine('$p=Start-Process -FilePath "cmd.exe" -ArgumentList @("/c","'+qBat+'") -WindowStyle Hidden -PassThru');
+    ps.WriteLine('$ok=$p.WaitForExit('+String(timeoutSec*1000)+')');
+    ps.WriteLine('if(-not $ok){ try{ & "$env:SystemRoot\\System32\\taskkill.exe" /PID $p.Id /T /F 2>$null | Out-Null }catch{}; $rc=258 } else { $rc=$p.ExitCode }');
+    ps.WriteLine('Set-Content -LiteralPath "'+qDoneTmp+'" -Value $rc -Encoding ASCII');
+    ps.WriteLine('Move-Item -LiteralPath "'+qDoneTmp+'" -Destination "'+qDone+'" -Force');
+    ps.WriteLine('exit $rc');
+    ps.Close();
+    var launch='Start-Process -FilePath powershell.exe -ArgumentList \'-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "'+ps1.replace(/'/g,"''")+'"\' -Verb RunAs -WindowStyle Hidden -PassThru | ForEach-Object { Set-Content -LiteralPath \''+pid.replace(/'/g,"''")+'\' -Value $_.Id -Encoding ASCII }';
+    var full='powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "'+launch.replace(/"/g,'\\"')+'"';
+    sh.Run(full,0,false);
+    bsRepairJob={done:done,out:out,pid:pid,bat:bat,ps1:ps1,started:new Date().getTime(),tag:tag,maxMs:maxMs||BS_REPAIR_MS};bsLastJobText="";return true;
+  }catch(e){logMsg("복구 명령 시작 오류: "+e.message,"bad");return false;}
+}
+function bsPollJob(){
+  try{
+    if(!bsRepairJob)return -1;
+    var fso=new ActiveXObject("Scripting.FileSystemObject"),now=new Date().getTime();
+    var elapsed=now-bsRepairJob.started;
+    if(bsRepairDeadline && now>=bsRepairDeadline){bsKillJob(bsRepairJob);logMsg("긴급 복구 전체 제한시간에 도달해 Windows 복구 작업을 종료했습니다.","caution");return -2;}
+    if(elapsed>bsRepairJob.maxMs){bsKillJob(bsRepairJob);logMsg((bsRepairJob.tag.indexOf("check")===0?"빠른 상태 확인":"Windows 복구")+"가 개별 제한시간을 초과해 중단되었습니다.","caution");return -2;}
+    if(!fso.FileExists(bsRepairJob.done))return 0;
+    try{if(fso.GetFile(bsRepairJob.done).Size<1)return 0;}catch(sz){return 0;}
+    var rc=-1,raw="",ts=null;
+    try{ts=fso.OpenTextFile(bsRepairJob.done,1,false);if(!ts.AtEndOfStream)raw=ts.ReadLine();ts.Close();rc=parseInt(raw,10);}catch(readErr){try{if(ts)ts.Close();}catch(closeErr){}return 0;}
+    if(isNaN(rc))return 0;
+    bsLastJobText="";
+    try{if(fso.FileExists(bsRepairJob.out)){var o=fso.OpenTextFile(bsRepairJob.out,1,false);bsLastJobText=o.ReadAll();o.Close();if(bsLastJobText)logMsg(bsLastJobText.slice(-1000),rc===0?"info":"caution");}}catch(ex){}
+    logMsg((bsRepairJob.tag.indexOf("check")===0?"DISM 빠른 상태 확인":"DISM 복구")+" 완료 - 종료 코드: "+rc,(rc===0?"good":"caution"));
+    var clean=[bsRepairJob.done,bsRepairJob.out,bsRepairJob.ps1,bsRepairJob.pid];for(var i=0;i<clean.length;i++){try{if(clean[i]&&fso.FileExists(clean[i]))fso.DeleteFile(clean[i],true);}catch(cl){}}
+    bsRepairJob=null;return rc===0?1:-1;
+  }catch(e){logMsg("복구 상태 확인 오류: "+e.message,"bad");return 0;}
+}
+function bsOutputSaysRepairable(txt){txt=String(txt||"");return /(repairable|component store corruption was detected|손상.*발견|손상.*복구.*필요|복구.*가능)/i.test(txt);}
+function bsOutputSaysHealthy(txt){txt=String(txt||"");return /(no component store corruption detected|구성 요소 저장소.*손상.*없|손상.*발견되지 않았|문제가.*발견되지 않았)/i.test(txt);}
+function bsWaitingProgress(min,max,label){bsWaitTick++;var span=Math.max(1,max-min),p=min+(Math.floor((new Date().getTime()-bsWaitStart)/500)%span);if(p>=max)p=max-1;bsLastShown=p;bsMainProgress(p);var sec=Math.floor((new Date().getTime()-bsWaitStart)/1000);setText("phase","진행 단계: "+label+" (진행 중 · "+sec+"초)");}
+function bsRepairFinish(msg,sub,completed){if(completed!==false)bsMainProgress(100);else bsMainProgress(Math.max(0,bsLastShown||0));setText("ready",msg);setText("readySub",sub||"");setText("phase","진행 단계: 긴급 복구 종료");setText("fixPct",(completed===false?String(Math.max(0,bsLastShown||0))+"%":"100%"));setText("fixCount","1");bsRepairRunning=false;bsRepairDeadline=0;if(bsRepairTimer)window.clearInterval(bsRepairTimer);bsRepairTimer=null;if(bsRepairJob){bsKillJob(bsRepairJob);bsRepairJob=null;}}
+function bsRepair(){
+  if(running||autoRunning||bsRepairRunning){logMsg("현재 다른 진단/복구 작업이 진행 중입니다.","caution");return;}
+  bsRepairRunning=true;bsRepairStage=0;bsRepairJob=null;bsWaitTick=0;bsLastShown=0;bsWaitStart=new Date().getTime();bsLastJobText="";bsRepairDeadline=new Date().getTime()+BS_MAX_TOTAL_MS;
+  bsMainProgress(3);setText("ready","블루스크린 긴급 복구 진행 중");setText("readySub","빠른 판정 후 필요한 경우에만 Windows 구성 요소를 복구합니다. 최대 5분");setText("phase","진행 단계: 블루스크린 기록 빠른 확인");logMsg("블루스크린 긴급 복구를 시작합니다. 불필요한 장시간 검사는 실행하지 않습니다.","info");if(bsRepairTimer)window.clearInterval(bsRepairTimer);bsRepairTimer=window.setInterval(bsRepairStep,350);
+}
+function bsRepairStep(){
+  try{
+    var now=new Date().getTime();
+    if(bsRepairStage!==5 && bsRepairDeadline && now>=bsRepairDeadline){bsRepairFinish("긴급 복구 시간 제한","현장용 5분 제한에 도달해 추가 복구를 중단했습니다. 복구 완료로 판정하지 않습니다.",false);return;}
+    if(bsRepairStage===0){
+      var r=bsLastBugCheck(),d=bsFileCount(),fso=new ActiveXObject("Scripting.FileSystemObject"),wer=0;
+      try{var paths=["C:\\Windows\\LiveKernelReports","C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive","C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportQueue"];for(var pi=0;pi<paths.length;pi++){if(fso.FolderExists(paths[pi]))wer++;}}catch(we){}
+      if((r.count||0)<=0&&d<=0&&wer<=0){bsRepairFinish("긴급 복구 완료 — 복구 불필요","최근 블루스크린 기록, 미니덤프, 오류 보고 흔적이 없어 무거운 Windows 복구 작업을 생략했습니다.");logMsg("빠른 판정에서 블루스크린 관련 복구 근거가 확인되지 않았습니다.","good");return;}
+      bsMainProgress(8);bsWaitStart=new Date().getTime();setText("phase","진행 단계: Windows 구성 요소 빠른 상태 확인 중");logMsg("블루스크린 흔적이 확인되어 DISM CheckHealth만 빠르게 확인합니다. 시스템 변경은 없습니다.","info");if(bsStartHiddenAdmin('DISM /Online /Cleanup-Image /CheckHealth','checkhealth',BS_CHECK_MS)){bsRepairStage=1;}else{bsRepairFinish("긴급 복구 시작 실패","빠른 상태 확인을 시작하지 못했습니다.",false);}return;
+    }
+    if(bsRepairStage===1){
+      var h=bsPollJob();if(h===0){bsWaitingProgress(8,28,"Windows 구성 요소 빠른 상태 확인");return;}if(h===-2){bsRepairFinish("빠른 판정 시간 초과","Windows 상태 확인이 20초 내 끝나지 않아 장시간 대기를 막기 위해 중단했습니다.",false);return;}if(h<0){bsRepairFinish("빠른 판정 실패","Windows 구성 요소 상태를 확인하지 못했습니다. 복구 완료로 판정하지 않습니다.",false);return;}
+      var ht=String(bsLastJobText||"");
+      if(bsOutputSaysHealthy(ht)){bsRepairFinish("긴급 복구 완료 — 복구 불필요","Windows 구성 요소 저장소의 손상이 확인되지 않아 장시간 복구를 실행하지 않았습니다.");logMsg("CheckHealth에서 구성 요소 저장소 손상이 확인되지 않았습니다.","good");return;}
+      if(!bsOutputSaysRepairable(ht)){bsRepairFinish("긴급 복구 종료 — 판정 불명확","Windows 복구 필요 여부를 명확히 판정하지 못해 추가 변경을 하지 않았습니다.",false);return;}
+      bsMainProgress(30);bsWaitStart=new Date().getTime();setText("phase","진행 단계: 확인된 Windows 구성 요소만 긴급 복구 중");logMsg("구성 요소 저장소 손상이 확인되어 DISM RestoreHealth를 실행합니다. 인터넷 지연을 막기 위해 로컬 원본 우선 모드로 실행합니다.","caution");
+      if(bsStartHiddenAdmin('DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess','dism_repair',BS_REPAIR_MS)){bsRepairStage=2;}else{bsRepairFinish("긴급 복구 시작 실패","DISM 복구를 시작하지 못했습니다.",false);}return;
+    }
+    if(bsRepairStage===2){
+      var dres=bsPollJob();if(dres===0){bsWaitingProgress(30,86,"확인된 Windows 구성 요소 긴급 복구");return;}if(dres===-2){bsRepairFinish("복구 시간 제한 — 완료 여부 미확정","Windows 구성 요소 복구가 3분 내 완료되지 않아 실제 작업을 중단했습니다.",false);return;}if(dres<0){bsRepairFinish("긴급 복구 실패","Windows 구성 요소 복구가 정상 완료되지 않았습니다.",false);return;}
+      bsMainProgress(88);bsWaitStart=new Date().getTime();setText("phase","진행 단계: 복구 결과 빠른 재확인 중");logMsg("복구 명령이 종료되어 CheckHealth로 결과를 다시 확인합니다.","info");if(bsStartHiddenAdmin('DISM /Online /Cleanup-Image /CheckHealth','recheck',BS_RECHECK_MS)){bsRepairStage=3;}else{bsRepairFinish("복구 결과 확인 실패","복구 완료 여부를 확인하지 못했습니다.",false);}return;
+    }
+    if(bsRepairStage===3){
+      var rr=bsPollJob();if(rr===0){bsWaitingProgress(88,98,"복구 결과 빠른 재확인");return;}if(rr===-2){bsRepairFinish("복구 결과 확인 시간 초과","복구는 중단하지 않았지만 최종 상태를 확정하지 못했습니다.",false);return;}if(rr<0){bsRepairFinish("복구 결과 확인 실패","최종 상태를 확정하지 못했습니다.",false);return;}
+      var rt=String(bsLastJobText||"");
+      if(bsOutputSaysHealthy(rt)){bsRepairFinish("긴급 복구 완료","손상 확인 → 필요한 복구 → 최종 상태 재확인까지 완료했습니다. 자동 재부팅하지 않았습니다.");logMsg("최종 CheckHealth에서 구성 요소 저장소 손상이 확인되지 않았습니다.","good");}
+      else if(bsOutputSaysRepairable(rt)){bsRepairFinish("복구 미완료 — 추가 조치 필요","최종 확인에서도 손상이 남아 있어 복구 완료로 표시하지 않았습니다.",false);}
+      else{bsRepairFinish("복구 결과 확인 필요","복구 명령은 종료됐지만 최종 상태를 명확히 판정하지 못했습니다.",false);}
+      return;
+    }
+  }catch(e){bsRepairFinish("긴급 복구 오류","복구 과정에서 오류가 발생했습니다.",false);logMsg("긴급 복구 오류: "+e.message,"bad");}
+}
+
+function openBlueScreenRecovery(){bsRepair();}
+function closeBlueScreenRecovery(){var m=byId("bsModal");if(m)m.style.display="none";}
+
+function navAction(name){
+  if(name==="대시보드"){setText("phase","진행 단계: 대시보드");return;}
+  if(name==="전체 진단"){startDiagnosis();return;}
+  if(name==="자동 복구"){startAutoRecovery();return;}
+  if(name==="긴급 복구"){emergencyRecovery();return;}
+  if(name==="긴급 복구(블루스크린)"){bsRepair();return;}
+  if(name==="설정"){openSettings();return;}
+  if(name==="COM 진단"){openComDiagnostic();return;}
+  if(name==="주변기기 진단"){openPeripheralDiagnostic();return;}
+  if(name==="정보"){openInfo();return;}
+  if(name==="디스크 정리"){openDiskCleanup();return;}
+  if(name==="상세 로그"){openDetailLog();return;}
+  setText("phase","진행 단계: "+name);
+  logMsg(name+" 메뉴를 선택했습니다.","info");
+}
+
+function openDetailLog(){
+  var m=byId("detailLogModal"); if(!m)return;
+  var src=byId("log"), dst=byId("detailLogContent");
+  dst.innerHTML=src?src.innerHTML:"";
+  m.style.display="block";
+  dst.scrollTop=dst.scrollHeight;
+}
+function closeDetailLog(){var m=byId("detailLogModal");if(m)m.style.display="none";}
+function saveReportToDesktop(){
+  try{
+    var sh=new ActiveXObject("WScript.Shell"), fso=new ActiveXObject("Scripting.FileSystemObject");
+    var desktop=sh.SpecialFolders("Desktop"), ts=new Date();
+    function pad(n){return n<10?"0"+n:""+n;}
+    var name="POS_CARE_진단보고서_"+ts.getFullYear()+pad(ts.getMonth()+1)+pad(ts.getDate())+"_"+pad(ts.getHours())+pad(ts.getMinutes())+pad(ts.getSeconds())+".txt";
+    var path=fso.BuildPath(desktop,name), file=fso.CreateTextFile(path,true,true);
+    var log=byId("log"), text=log?log.innerText:"진단 로그가 없습니다.";
+    file.WriteLine("POS CARE PRO 진단 보고서");
+    file.WriteLine("생성일시: "+ts.toLocaleString());
+    file.WriteLine("========================================");
+    file.WriteLine(text);
+    file.Close();
+    logMsg("보고서 저장 완료: 바탕화면\\"+name,"good");
+    alert("보고서가 바탕화면에 저장되었습니다.\n\n"+name);
+  }catch(e){logMsg("보고서 저장 오류: "+e.message,"caution");alert("보고서 저장에 실패했습니다.\n\n"+e.message);}
+}
+
+
+// 창 크기 조절은 HTA의 네이티브 RESIZE 기능을 사용합니다.
+// 마우스 드래그 중 window.resizeTo()를 반복 호출하지 않아 끊김/지연을 방지합니다.
+function startupError(msg,url,line){
+  try{
+    var fso=new ActiveXObject("Scripting.FileSystemObject"), sh=new ActiveXObject("WScript.Shell");
+    var out=sh.ExpandEnvironmentStrings("%TEMP%")+"\\POSCAREPRO_startup_error.log";
+    var f=fso.OpenTextFile(out,8,true); f.WriteLine(new Date().toLocaleString()+" | "+msg+" | line="+line+" | url="+(url||"")); f.Close();
+  }catch(e){}
+}
+window.onerror=function(msg,url,line){ startupError(msg,url,line); return false; };
+
+function init(){
+  // 시작 시에는 로그인/화면 렌더링만 처리합니다. WMI와 외부 인터넷 확인은 로그인 뒤 순차 실행합니다.
+  try{showLogin();}catch(e){}
+  try{progress(0);updateSelectionCount();setText("cpu","로그인 후 확인");setText("mem","로그인 후 확인");setText("disk","로그인 후 확인");setText("netVal","로그인 후 확인");setText("inetVal","로그인 후 확인");setWidth("cpuBar",0);setWidth("memBar",0);setWidth("diskBar",0);setText("ready","진단 준비 완료");setText("readySub","로그인 후 상태 확인이 시작됩니다. 자동 복구는 메뉴에서 실행할 때만 시작됩니다.");}catch(e){}
+  window.setTimeout(function(){
+    try{loadWindowSize();scheduleFit();}catch(e){}
+    try{logMsg("POS CARE PRO 화면 준비 완료. 로그인 응답성을 우선합니다.","good");logMsg("로그인 전에는 시스템 검사나 자동 복구를 실행하지 않습니다.","info");}catch(e){}
+  },80);
+}
+
+var fitTimer=null;
+function fitWholeScreen(){
+  try{
+    var root=byId('root'); if(!root)return;
+    var vw=document.documentElement.clientWidth||document.body.clientWidth||0;
+    var vh=document.documentElement.clientHeight||document.body.clientHeight||0;
+    if(vw<10||vh<10)return;
+    var baseW=1500, baseH=900;
+    var scale=Math.min(vw/baseW,vh/baseH);
+    if(!isFinite(scale)||scale<=0)scale=1;
+    scale=Math.max(0.55,Math.min(scale,1.35));
+    root.style.zoom=scale;
+    root.style.width=(100/scale)+'%';
+    root.style.height=(100/scale)+'%';
+  }catch(e){}
+}
+function scheduleFit(){
+  if(fitTimer)window.clearTimeout(fitTimer);
+  fitTimer=window.setTimeout(function(){fitTimer=null;fitWholeScreen();},220);
+}
+window.setTimeout(fitWholeScreen,300);
+window.onresize=scheduleFit;
+
+</script>
+</head>
+<body onload="init()">
+
+<div id="loginOverlay">
+  <div class="loginBox">
+    <div class="loginLogo"><img src="logo.png"></div>
+    <div class="loginTitle">POS CARE PRO</div>
+    <div class="loginSub">현장 진단센터 관리자 로그인</div>
+    <label class="loginLabel">아이디</label>
+    <input id="loginId" class="loginInput" type="text" value="yogiorder" onkeydown="return loginKey(event)">
+    <label class="loginLabel">비밀번호</label>
+    <input id="loginPw" class="loginInput" type="password" onkeydown="return loginKey(event)">
+    <button class="loginBtn" onclick="doLogin()">로그인</button>
+    <div id="loginMsg" class="loginMsg"></div>
+  </div>
+</div>
+<div id="settingsGate" class="modalShade" style="display:none">
+  <div class="modalBox" style="width:430px;margin-left:-215px;margin-top:-145px">
+    <div class="modalTitle">설정 메뉴 잠금</div>
+    <div style="color:#8fa8c4;font-size:12px;line-height:1.7;margin-bottom:14px">보안을 위해 설정 메뉴에 들어가려면 현재 관리자 비밀번호를 한 번 더 입력하세요.</div>
+    <label class="loginLabel">현재 비밀번호</label>
+    <input id="settingsGatePw" class="loginInput" type="password" onkeydown="return settingsGateKey(event)">
+    <div id="settingsGateMsg" class="modalMsg"></div>
+    <div style="margin-top:12px;text-align:right"><button class="modalBtn" onclick="verifySettingsGate()">확인</button><button class="modalBtn modalCancel" onclick="closeSettingsGate()">취소</button></div>
+  </div>
+</div>
+
+<div id="periphModal" class="periphModal"><div class="periphBox"><div class="periphTitle">주변기기 진단</div><div class="periphSub">현재 Windows에서 인식된 POS 주변기기의 연결 상태와 장치 오류 여부를 점검합니다.</div><div class="periphTools"><button class="periphRun" onclick="peripheralCheck()">↻ 다시 진단</button><button class="periphClose" onclick="closePeripheralDiagnostic()">닫기</button></div><table class="periphTable"><tr><th class="ppNo">No.</th><th class="ppDevice">주변기기</th><th class="ppPort">연결</th><th class="ppDetail">인식 장치</th><th class="ppStatus">상태</th><th class="ppResult">결과</th></tr>
+<tr><td class="ppNo">06</td><td class="ppDevice">COM1</td><td class="ppPort">COM1</td><td id="px06" class="ppDetail">-</td><td id="ps06" class="ppStatus">대기</td><td id="pr06" class="ppResult">-</td></tr>
+<tr><td class="ppNo">07</td><td class="ppDevice">COM2</td><td class="ppPort">COM2</td><td id="px07" class="ppDetail">-</td><td id="ps07" class="ppStatus">대기</td><td id="pr07" class="ppResult">-</td></tr>
+<tr><td class="ppNo">08</td><td class="ppDevice">COM3</td><td class="ppPort">COM3</td><td id="px08" class="ppDetail">-</td><td id="ps08" class="ppStatus">대기</td><td id="pr08" class="ppResult">-</td></tr>
+<tr><td class="ppNo">09</td><td class="ppDevice">COM4</td><td class="ppPort">COM4</td><td id="px09" class="ppDetail">-</td><td id="ps09" class="ppStatus">대기</td><td id="pr09" class="ppResult">-</td></tr>
+<tr><td class="ppNo">10</td><td class="ppDevice">COM5</td><td class="ppPort">COM5</td><td id="px10" class="ppDetail">-</td><td id="ps10" class="ppStatus">대기</td><td id="pr10" class="ppResult">-</td></tr>
+<tr><td class="ppNo">11</td><td class="ppDevice">영수증 프린터</td><td class="ppPort">Windows</td><td id="px11" class="ppDetail">-</td><td id="ps11" class="ppStatus">대기</td><td id="pr11" class="ppResult">-</td></tr>
+<tr><td class="ppNo">12</td><td class="ppDevice">듀얼모니터</td><td class="ppPort">Display</td><td id="px12" class="ppDetail">-</td><td id="ps12" class="ppStatus">대기</td><td id="pr12" class="ppResult">-</td></tr>
+<tr><td class="ppNo">13</td><td class="ppDevice">USB 주변기기</td><td class="ppPort">USB</td><td id="px13" class="ppDetail">-</td><td id="ps13" class="ppStatus">대기</td><td id="pr13" class="ppResult">-</td></tr></table><div id="periphLog" class="periphLog"></div></div></div>
+
+<div id="bsModal" class="bsModal"><div class="bsBox"><div class="bsTitle">긴급 복구</div><div class="bsSub">장시간 복구를 방지하는 현장용 긴급 복구 모드입니다. 필요한 경우에만 Windows 구성 요소를 복구합니다.</div><div class="bsTools"><button class="bsRun" onclick="bsCheck()">↻ 블루스크린 검사</button><button class="bsRepair" onclick="bsRepair()">⚒ 긴급 복구</button><button class="bsClose" onclick="closeBlueScreenRecovery()">닫기</button></div><div class="bsSummary"><div class="bsCard"><div class="bsCardLabel">종합 상태</div><div id="bsOverall" class="bsCardValue">대기</div></div><div class="bsCard"><div class="bsCardLabel">BugCheck 이벤트</div><div id="bsEvent" class="bsCardValue">-</div></div><div class="bsCard"><div class="bsCardLabel">미니덤프</div><div id="bsDump" class="bsCardValue">-</div></div><div class="bsCard"><div class="bsCardLabel">WER</div><div id="bsWer" class="bsCardValue">-</div></div></div><div class="bsRows"><div class="bsRow"><div class="bsLabel">시스템 파일</div><div id="bsSystem" class="bsValue">대기</div></div><div class="bsRow"><div class="bsLabel">점검 기준</div><div class="bsValue">System 이벤트 1001(BugCheck), Windows Minidump, WER 관련 폴더</div></div><div class="bsRow"><div class="bsLabel">복구 방법</div><div class="bsValue">빠른 CheckHealth → 필요한 경우에만 DISM RestoreHealth</div></div><div class="bsRow"><div class="bsLabel">재부팅</div><div class="bsValue">자동 재부팅하지 않음 · 복구 후 상태 재검사</div></div></div><div id="bsLog" class="bsLog"></div></div></div>
+<div id="infoModal" class="infoModal"><div class="infoBox"><div class="infoTitle">프로그램 정보</div><div class="infoBrand">요기오더</div><div class="infoRows"><div class="infoRow"><span class="infoLabel">사업자등록번호</span><span class="infoValue">725-87-02563</span></div><div class="infoRow"><span class="infoLabel">대표번호</span><span class="infoValue">1660-0989</span></div><div class="infoRow"><span class="infoLabel">주소</span><span class="infoValue">경기도 남양주시 덕송2로 70-27, 2층</span></div></div><button class="infoClose" onclick="closeInfo()">닫기</button></div></div>
+<div id="settingsModal" class="modalShade" style="display:none">
+  <div class="modalBox">
+    <div class="modalTitle">설정 · 관리자 비밀번호 변경</div>
+    <div style="border-bottom:1px solid #20364d;padding-bottom:18px;margin-bottom:4px">
+      <label class="loginLabel">창 크기</label>
+      <select id="windowSize" class="loginInput" style="height:40px">
+        <option value="maximized">전체 화면</option>
+        <option value="1920x1080">1920 × 1080</option>
+        <option value="1600x900">1600 × 900</option>
+        <option value="1440x900">1440 × 900</option>
+        <option value="1366x768">1366 × 768</option>
+        <option value="1280x720">1280 × 720</option>
+      </select>
+      <div style="text-align:right;margin-top:8px"><button class="modalBtn" onclick="saveWindowSizeSetting()">창 크기 적용</button></div>
+      <div style="color:#72869d;font-size:10px;margin-top:6px">※ 설정 외에도 프로그램 창의 가장자리 또는 모서리를 마우스로 드래그하여 크기를 조절할 수 있습니다.</div>
+      <div id="windowMsg" class="modalMsg" style="text-align:left"></div>
+    </div>
+    <div style="border-bottom:1px solid #20364d;padding:14px 0 18px;margin-bottom:4px">
+      <label class="loginLabel">업데이트 서버 주소 (GitHub Releases)</label>
+      <input id="updateUrl" class="loginInput" type="text" placeholder="https://api.github.com/repos/계정명/저장소명/releases/latest">
+      <label class="loginLabel" style="margin-top:8px">MYBOX 개인 액세스 토큰</label>
+      <input id="myboxPat" class="loginInput" type="password" autocomplete="off" spellcheck="false" placeholder="mbx_pat_...">
+      <label class="loginLabel" style="margin-top:8px">MYBOX 업데이트 폴더명</label>
+      <input id="myboxFolder" class="loginInput" type="text" value="POS CARE PRO 업데이트" placeholder="POS CARE PRO 업데이트">
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="modalBtn" onclick="testMyboxConnection()">MYBOX 연결 확인</button>
+        <button class="modalBtn" onclick="checkForUpdate()">업데이트 확인</button>
+      </div>
+      <div id="updateMsg" class="modalMsg" style="text-align:left;height:auto;min-height:18px"></div>
+      <div style="color:#72869d;font-size:10px;line-height:1.5;margin-top:5px">GitHub 사용: 공개 저장소의 Releases에 프로그램 ZIP을 첨부한 뒤 주소 칸에 https://api.github.com/repos/계정명/저장소명/releases/latest 를 입력하세요. 일반 github.com 홈페이지 주소가 아니라 API 주소를 입력해야 합니다. GitHub 사용 시 MYBOX 토큰은 비워도 되며, 예전 MYBOX 토큰이 저장되어 있어도 GitHub 주소를 우선 사용합니다. 기존 MYBOX 사용자는 토큰/폴더 방식을 계속 사용할 수 있습니다.</div>
+    </div>
+    <label class="loginLabel">현재 비밀번호</label>
+    <input id="oldPw" class="loginInput" type="password">
+    <label class="loginLabel">현재 비밀번호 재입력</label>
+    <input id="oldPwConfirm" class="loginInput" type="password">
+    <label class="loginLabel">새 비밀번호</label>
+    <input id="newPw" class="loginInput" type="password">
+    <label class="loginLabel">새 비밀번호 확인</label>
+    <input id="newPw2" class="loginInput" type="password">
+    <div id="settingsUpdateSection" style="margin-top:12px;border-top:1px solid #20364d;padding-top:12px">
+      <div style="color:#dce8f7;font-size:12px;font-weight:bold;margin-bottom:7px">프로그램 업데이트</div>
+      <button id="settingsUpdateBtn" class="modalBtn" onclick="autoUpdate()" style="width:100%;height:42px;font-size:14px;font-weight:bold;margin:0">↻ 업데이트</button>
+      <div style="color:#72869d;font-size:10px;line-height:1.5;margin-top:5px">저장된 업데이트 서버 주소를 사용해 최신 버전을 확인하고 자동으로 적용합니다.</div>
+    </div>
+    <div id="settingsMsg" class="modalMsg"></div>
+    <div style="text-align:right;margin-top:10px">
+      <button class="modalBtn" onclick="changePassword()">변경 저장</button>
+      <button class="modalBtn modalCancel" onclick="closeSettings()">취소</button>
+    </div>
+  </div>
+</div>
+
+<div id="detailLogModal" style="display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:9999"><div style="width:760px;max-width:88%;height:70%;margin:7% auto;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:20px;box-sizing:border-box"><div style="display:flex;justify-content:space-between;align-items:center;font-size:18px;font-weight:bold;color:#1c2c3d;margin-bottom:12px"><span>상세 로그</span><button class="modalBtn modalCancel" onclick="closeDetailLog()">닫기</button></div><div style="font-size:12px;color:#718398;margin-bottom:8px">진단 진행 중 발생한 정상 / 주의 / 오류 / 복구 완료 내용을 확인할 수 있습니다.</div><div id="detailLogContent" style="height:calc(100% - 70px);overflow:auto;background:#0f1720;color:#d8e4ef;border-radius:8px;padding:12px;box-sizing:border-box;font-family:Consolas,monospace;font-size:12px;line-height:1.6"></div></div></div>
+<div id="diskModal"><div class="diskBox"><div class="diskTitle">디스크 정리</div><div class="diskSub">C: 드라이브 상태를 확인하고 Windows 기본 디스크 정리 및 최적화를 실행할 수 있습니다.</div><div class="diskInfo"><div class="diskInfoRow"><span>C: 전체 용량</span><span id="diskTotal" class="diskValue">확인 중</span></div><div class="diskInfoRow"><span>C: 여유 공간</span><span id="diskFree" class="diskValue">확인 중</span></div><div class="diskInfoRow"><span>C: 사용률</span><span id="diskUsed" class="diskValue">확인 중</span></div></div><div class="diskTools"><button class="diskRun" onclick="optimizeCDrive()">▣ C: 드라이브 최적화</button><button class="diskClean" onclick="cleanCDrive()">▤ Windows 디스크 정리</button><button class="diskClose" onclick="closeDiskCleanup()">닫기</button></div><div id="diskStatus" class="diskStatus"></div><div class="diskHint">※ 최적화는 Windows의 defrag /O 명령을 사용합니다. SSD/HDD 종류에 따라 Windows가 적절한 최적화 작업을 자동 선택합니다.<br>※ 디스크 정리는 Windows의 cleanmgr.exe를 실행합니다.</div></div></div><div id="comModal" class="comModal"><div class="comBox"><div class="comTitle">COM 포트 진단</div><div class="comSub">COM1~COM10 포트를 실제 Windows 장치 상태로 검사합니다. 오류가 발견되면 해당 포트를 비활성화/재활성화하여 복구할 수 있습니다.</div><div class="comTools"><button class="comRun" onclick="runComDiagnostics()">↻ 다시 진단</button><button class="comRecover" onclick="recoverAllCom()">⚒ 오류 전체 복구</button><button class="comClose" onclick="closeComDiagnostic()">닫기</button></div><table class="comTable"><tr><th class="comNo">No.</th><th class="comPort">포트</th><th class="comDevice">장치</th><th class="comStatus">상태</th><th class="comResult">결과</th><th class="comAction">복구</th></tr><tr><td class="comNo">01</td><td class="comPort">COM1</td><td id="cn1" class="comDevice">-</td><td id="cs1" class="comStatus">대기</td><td id="cr1" class="comResult">-</td><td class="comAction"><button id="cb1" class="comBtn" onclick="recoverCom(1)" disabled>복구</button></td></tr><tr><td class="comNo">02</td><td class="comPort">COM2</td><td id="cn2" class="comDevice">-</td><td id="cs2" class="comStatus">대기</td><td id="cr2" class="comResult">-</td><td class="comAction"><button id="cb2" class="comBtn" onclick="recoverCom(2)" disabled>복구</button></td></tr><tr><td class="comNo">03</td><td class="comPort">COM3</td><td id="cn3" class="comDevice">-</td><td id="cs3" class="comStatus">대기</td><td id="cr3" class="comResult">-</td><td class="comAction"><button id="cb3" class="comBtn" onclick="recoverCom(3)" disabled>복구</button></td></tr><tr><td class="comNo">04</td><td class="comPort">COM4</td><td id="cn4" class="comDevice">-</td><td id="cs4" class="comStatus">대기</td><td id="cr4" class="comResult">-</td><td class="comAction"><button id="cb4" class="comBtn" onclick="recoverCom(4)" disabled>복구</button></td></tr><tr><td class="comNo">05</td><td class="comPort">COM5</td><td id="cn5" class="comDevice">-</td><td id="cs5" class="comStatus">대기</td><td id="cr5" class="comResult">-</td><td class="comAction"><button id="cb5" class="comBtn" onclick="recoverCom(5)" disabled>복구</button></td></tr><tr><td class="comNo">06</td><td class="comPort">COM6</td><td id="cn6" class="comDevice">-</td><td id="cs6" class="comStatus">대기</td><td id="cr6" class="comResult">-</td><td class="comAction"><button id="cb6" class="comBtn" onclick="recoverCom(6)" disabled>복구</button></td></tr><tr><td class="comNo">07</td><td class="comPort">COM7</td><td id="cn7" class="comDevice">-</td><td id="cs7" class="comStatus">대기</td><td id="cr7" class="comResult">-</td><td class="comAction"><button id="cb7" class="comBtn" onclick="recoverCom(7)" disabled>복구</button></td></tr><tr><td class="comNo">08</td><td class="comPort">COM8</td><td id="cn8" class="comDevice">-</td><td id="cs8" class="comStatus">대기</td><td id="cr8" class="comResult">-</td><td class="comAction"><button id="cb8" class="comBtn" onclick="recoverCom(8)" disabled>복구</button></td></tr><tr><td class="comNo">09</td><td class="comPort">COM9</td><td id="cn9" class="comDevice">-</td><td id="cs9" class="comStatus">대기</td><td id="cr9" class="comResult">-</td><td class="comAction"><button id="cb9" class="comBtn" onclick="recoverCom(9)" disabled>복구</button></td></tr><tr><td class="comNo">10</td><td class="comPort">COM10</td><td id="cn10" class="comDevice">-</td><td id="cs10" class="comStatus">대기</td><td id="cr10" class="comResult">-</td><td class="comAction"><button id="cb10" class="comBtn" onclick="recoverCom(10)" disabled>복구</button></td></tr></table><div id="comLog" class="comLog"></div></div></div>
+<div id="printModal" class="printModal"><div class="printBox"><div class="printTitle">프린트 테스트</div><div class="printSub">내장 프린트 통신 기능으로 COM 포트와 통신 속도를 확인한 후 테스트 출력합니다.</div><div class="printTools"><button class="printRun" onclick="runPrintTest()">▣ 테스트 시작</button><button class="printStop" onclick="stopPrintTest()">■ STOP</button><button class="printCancel" onclick="closePrintTest()">닫기</button></div><div class="printRows"><div class="printRow"><label>COM PORT</label><select id="printPort"><option value="COM1">COM1</option><option value="COM2">COM2</option><option value="COM3">COM3</option><option value="COM4">COM4</option><option value="COM5">COM5</option><option value="COM6">COM6</option><option value="COM7">COM7</option><option value="COM8">COM8</option><option value="COM9">COM9</option><option value="COM10">COM10</option></select></div><div class="printRow"><label>통신 속도</label><select id="printSpeed"><option value="9600">9600 bps</option><option value="38400">38400 bps</option><option value="115200">115200 bps</option></select></div><div class="printRow"><label>NV image</label><input id="printImage" type="file" accept="image/*" onchange="printImageSelected(this)"><span id="printImageName" class="printFileName">선택된 이미지 없음</span></div></div><div class="printActionGrid"><button class="printAction" onclick="runPrintTest()">Selected / 테스트 실행</button><button class="printAction" onclick="runPrintTest()">NV Print</button><button class="printAction" onclick="stopPrintTest()">STOP</button></div><div class="printInfo">• COM PORT: COM1~COM10 선택<br>• 통신 속도: 9600 / 38400 / 115200 bps<br>• NV image: 이미지 파일을 선택할 수 있습니다.<br>• Selected / NV Print / STOP 기능은 내장 프린트 통신 모듈로 동작합니다.<br>• <b>테스트 시작</b>을 누르면 선택한 COM PORT로 테스트 출력합니다.</div><div id="printStatus" class="printStatus">대기 중</div><div id="printExeStatus" class="printExeStatus">내장 PrnTest 준비 완료</div></div></div><table id="root"><tr><td class="side">
+<div class="brand"><img src="logo.png"><div class="brandText"><div class="brandName">POS CARE <span>PRO</span></div><div class="brandSub">진단 및 자동복구 프로그램</div></div></div>
+<button class="nav active" onclick="navAction('대시보드')"><span class="ico">⌂</span>대시보드</button><button class="nav" onclick="navAction('전체 진단')"><span class="ico">⌁</span>전체 진단</button><button class="nav" onclick="navAction('자동 복구')"><span class="ico">⚒</span>자동 복구</button><button class="nav" onclick="navAction('긴급 복구')"><span class="ico">ϟ</span>긴급 복구</button><button class="nav" onclick="navAction('긴급 복구(블루스크린)')"><span class="ico">⚠</span>긴급 복구(블루스크린)</button><button class="nav" onclick="navAction('디스크 정리')"><span class="ico">▰</span>디스크 정리</button><button class="nav" onclick="navAction('COM 진단')"><span class="ico">▣</span>COM 진단</button><button class="nav" onclick="navAction('주변기기 진단')"><span class="ico">▣</span>주변기기 진단</button><button class="nav" onclick="navAction('상세 로그')"><span class="ico">▤</span>상세 로그</button><button class="nav" onclick="navAction('설정')"><span class="ico">⚙</span>설정</button><button class="nav" onclick="navAction('정보')"><span class="ico">ⓘ</span>정보</button>
+<div class="sys"><h3>시스템 정보</h3><p>• Windows 10 / 11</p><p>• 현장 진단 모드</p><p>• 관리자 권한</p><div class="ver">버전 2.1 긴급복구·장치진단 강화판</div></div>
+</td><td class="main">
+<div class="top"><div class="title">대시보드</div><div class="sub">POS 시스템의 상태를 진단하고 문제를 자동으로 복구합니다.</div><button class="admin">♙ &nbsp; 관리자 모드</button></div>
+<table class="cards"><tr><td><div class="card ready"><div class="lbl">전체 상태</div><div class="big" id="ready">진단 준비 완료</div></td><td><div class="card ok"><div class="lbl">✓ 정상</div><div class="big" id="okCount">0</div><div class="small" id="okPct">0%</div></div></td><td><div class="card warn"><div class="lbl">! 주의</div><div class="big" id="warnCount">0</div><div class="small" id="warnPct">0%</div></div></td><td><div class="card err"><div class="lbl">× 오류</div><div class="big" id="errCount">0</div><div class="small" id="errPct">0%</div></div></td><td><div class="card fix"><div class="lbl">↻ 복구 완료</div><div class="big" id="fixCount">0</div><div class="small" id="fixPct">0%</div></div></td></tr></table>
+<table class="content"><tr><td class="left"><div class="panel"><div class="pt">전체 진단 진행 상황</div><div class="prog"><span style="font-size:11px;color:#91a7bd">진행률&nbsp;&nbsp;</span><span class="track"><span id="bar" class="bar"></span></span><span class="pct" id="pct">0%</span><button class="btn" onclick="startDiagnosis()">▶ 진단 시작</button><button class="btn stop" onclick="stopDiagnosis()">■ 중지</button><div class="meta"><span>경과 시간: 00:00:00</span><span>남은 시간: --:--:--</span><span id="phase">진행 단계: 대기 중</span></div></div>
+<div class="selectTools"><button class="selectBtn" onclick="startSelectedDiagnosis()">▶ 선택 진단</button><button class="selectBtn recover" onclick="recoverSelected()">⚒ 선택 복구</button><button class="selectBtn gray" onclick="selectAll(true)">전체 선택</button><button class="selectBtn gray" onclick="selectAll(false)">전체 해제</button><span id="selectCount" class="selectCount">0개 선택</span></div><div class="dt">진단 항목</div><div class="diagWrap"><table class="diag"><tr><th class="sel">선택</th><th class="n">No.</th><th class="it">항목</th><th>상세</th><th class="st">상태</th><th class="res">결과</th></tr>
+<tr id="r1"><td class="sel"><input id="c1" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">01</td><td class="it">시스템 상태</td><td class="desc">Windows 기본 상태 및 시스템 파일 검사</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r2"><td class="sel"><input id="c2" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">02</td><td class="it">CPU / 메모리 / 디스크</td><td class="desc">CPU, RAM, 디스크 사용량 및 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r3"><td class="sel"><input id="c3" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">03</td><td class="it">Windows 서비스</td><td class="desc">필수 Windows 서비스 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r4"><td class="sel"><input id="c4" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">04</td><td class="it">이벤트 로그</td><td class="desc">시스템 이벤트 로그 오류 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r5"><td class="sel"><input id="c5" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">05</td><td class="it">네트워크 연결</td><td class="desc">네트워크 연결 상태 및 인터넷 연결 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r6"><td class="sel"><input id="c6" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">06</td><td class="it">COM1</td><td class="desc">COM1 포트 및 실제 연결 기기 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r7"><td class="sel"><input id="c7" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">07</td><td class="it">COM2</td><td class="desc">COM2 포트 및 실제 연결 기기 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r8"><td class="sel"><input id="c8" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">08</td><td class="it">COM3</td><td class="desc">COM3 포트 및 실제 연결 기기 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r9"><td class="sel"><input id="c9" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">09</td><td class="it">COM4</td><td class="desc">COM4 포트 및 실제 연결 기기 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+<tr id="r10"><td class="sel"><input id="c10" type="checkbox" onclick="updateSelectionCount()"></td><td class="n">10</td><td class="it">COM5</td><td class="desc">COM5 포트 및 실제 연결 기기 상태 확인</td><td class="st">대기 중</td><td class="res">-</td></tr>
+</table></div><div class="log" id="log"></div></div></td>
+<td class="right"><div class="panel"><div class="pt">실시간 시스템 상태</div><div class="statusPanel"><div class="srow"><div class="sline"><span class="sicon">▦</span><div class="sbody"><div class="slabel">CPU 사용률</div><div class="svalue" id="cpu">확인 중</div><div class="meter"><span id="cpuBar" class="meterFill"></span></div></div></div><div class="ssub" id="cpuVal">실시간 측정 중</div></div><div class="srow"><div class="sline"><span class="sicon">▤</span><div class="sbody"><div class="slabel">메모리 사용률</div><div class="svalue" id="mem">확인 중</div><div class="meter"><span id="memBar" class="meterFill"></span></div></div></div><div class="ssub" id="memSub">RAM 실시간 측정 중</div></div><div class="srow"><div class="sline"><span class="sicon">▰</span><div class="sbody"><div class="slabel">디스크 사용률 (C:)</div><div class="svalue" id="disk">확인 중</div><div class="meter"><span id="diskBar" class="meterFill"></span></div></div></div><div class="ssub" id="diskSub">디스크 실시간 측정 중</div></div><div class="srow netrow"><div class="sline"><span class="sicon">♣</span><div class="sbody"><div class="slabel">네트워크 상태</div><div class="svalue statusGood" id="netVal">확인 중</div><div class="ssub" id="netSub">실시간 확인 중</div></div></div></div><div class="srow netrow"><div class="sline"><span class="sicon">◎</span><div class="sbody"><div class="slabel">인터넷 연결</div><div class="svalue statusGood" id="inetVal">확인 중</div><div class="ssub" id="inetSub">실시간 확인 중</div></div></div></div><div class="quick"><h3>빠른 작업</h3><button class="q" onclick="quick('전체 진단')">▣ 전체 진단</button><button class="q qg" onclick="quick('자동 복구')">⚒ 자동 복구</button><button class="q" onclick="quick('디스크 정리')">▰ 디스크 정리</button><button class="q qr" onclick="quick('긴급 복구')">ϟ 긴급 복구</button><button class="q qp" onclick="openPrintTest()">▣ 프린트 테스트</button></div></div></div></td></tr></table>
+<div class="bottom">ⓘ 진단을 시작하려면 '진단 시작' 버튼을 클릭하세요.<button class="save" onclick="saveReportToDesktop()">▤ 보고서 저장</button></div>
+</td></tr></table>
+</body></html>

@@ -1,0 +1,12 @@
+POS CARE PRO 2.2.0 GitHub Releases 자동 업데이트 전환
+
+수정 사항
+1. GitHub 최신 Release API 응답(tag_name/assets)을 버전 및 ZIP 다운로드 주소로 변환합니다.
+2. 업데이트 확인과 자동 적용이 같은 GitHub Releases 주소를 사용하도록 경로를 통합했습니다.
+3. 이전 레지스트리에 MYBOX 토큰이 남아 있어도 GitHub Releases API URL을 입력하면 GitHub 방식이 우선됩니다.
+4. 일반 HTTPS JSON manifest + url 방식도 유지하고, 기존 MYBOX 방식도 호환 유지합니다.
+5. Release에 ZIP이 없거나 GitHub 응답이 예상과 다르면 원인을 더 구체적으로 표시합니다.
+6. 프로그램 버전을 2.2.0으로 올렸습니다.
+
+정밀검사: HTA에 포함된 JScript 문법검사, GitHub API 응답 시뮬레이션, 최신/구버전 비교, ZIP 주소/자산 선택, 원본 파일 누락 여부 및 ZIP 무결성 검사를 진행하세요.
+실제 사용자 GitHub 저장소에는 아직 업로드하지 않았습니다. 설정 안내의 OWNER/REPO는 실제로 만든 공개 저장소명으로 교체해야 합니다.
